@@ -24,7 +24,7 @@ public:
 
 	virtual bool open(int openMode) = 0;
 	virtual void close() = 0;
-	virtual bool isOpen() = 0;
+	virtual bool isOpen() const  = 0;
 
 	virtual bool atEnd() const { return true; }
 
