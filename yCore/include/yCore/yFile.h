@@ -10,7 +10,6 @@ class yCORE_API yFile : public yIODevice
 public:
 	enum Permission
 	{
-
 	};
 
 public:
