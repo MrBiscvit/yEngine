@@ -150,6 +150,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\yCore\yByteArray.h" />
     <ClInclude Include="include\yCore\yChrono.h" />
     <ClInclude Include="include\yCore\yCore.h" />
     <ClInclude Include="include\yCore\yGlobal.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="source\yCore\Win\yMutex.cpp" />
     <ClCompile Include="source\yCore\Win\yThread.cpp" />
     <ClCompile Include="source\yCore\Win\yTime.cpp" />
+    <ClCompile Include="source\yCore\yByteArray.cpp" />
     <ClCompile Include="source\yCore\yGlobal.cpp" />
   </ItemGroup>
   <ItemGroup>
