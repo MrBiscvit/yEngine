@@ -28,13 +28,13 @@ public:
 
 	inline yByteArray & insert(int index, const yByteArray & other) { return insert(index, other._data, other._size); }
 	yByteArray & insert(int index, const char * data, int length);
-	inline yByteArray & insert(int index, const char * data) { return insert(index, data, strlen(data)); }
+	inline yByteArray & insert(int index, const char * data) { return insert(index, data, (int)strlen(data)); }
 	yByteArray & insert(int index, int count, char character);
 	inline yByteArray & insert(int index, char character) { return insert(index, 1, character); }
 
 	inline yByteArray & append(const yByteArray & other) { return append(other._data, other._size); }
 	inline yByteArray & append(const char * data, int length) { return insert(_size-1, data, length); }
-	inline yByteArray & append(const char * data) { return append(data, strlen(data)); }
+	inline yByteArray & append(const char * data) { return append(data, (int)strlen(data)); }
 	inline yByteArray & append(int count, char character) { return insert(_size - 1, count, character); }
 	inline yByteArray & append(char character) { return append(1, character); }
 	inline yByteArray & push_back(const yByteArray & other) { return append(other); }
@@ -43,7 +43,7 @@ public:
 
 	inline yByteArray & prepend(const yByteArray & other) { return prepend(other._data, other._size); }
 	inline yByteArray & prepend(const char * data, int length) { return insert(0, data, length); }
-	inline yByteArray & prepend(const char * data) { return prepend(data, strlen(data)); }
+	inline yByteArray & prepend(const char * data) { return prepend(data, (int)strlen(data)); }
 	inline yByteArray & prepend(int count, char character) { return insert(0, count, character); }
 	inline yByteArray & prepend(char character) { return prepend(1, character); }
 	inline yByteArray & push_front(const yByteArray & other) { return prepend(other); }
