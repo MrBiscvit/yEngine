@@ -1,5 +1,36 @@
 #include <yCore/yByteArray.h>
 
+yByteArray::yByteArray() :
+	_size(0), _data((char*) malloc(0))
+{
+}
+yByteArray::yByteArray(const char * data, int size) :
+	_size(size), _data((char*)malloc(_size * sizeof(char)))
+{
+	memcpy(_data, data, _size);
+}
+yByteArray::yByteArray(const char * data) :
+	_size((int)strlen(data)), _data((char*)malloc(_size * sizeof(char)))
+{
+	memcpy(_data, data, _size);
+}
+yByteArray::yByteArray(int count, char charater) :
+	_size(count), _data((char*)malloc(_size * sizeof(char)))
+{
+	for (int i(0); i < _size; ++i)
+		_data[i] = charater;
+}
+yByteArray::yByteArray(char character) :
+	_size(1), _data((char*)malloc(_size * sizeof(char)))
+{
+	_data[0] = character;
+}
+yByteArray::~yByteArray()
+{
+	if (_data)
+		free(_data);
+}
+
 char yByteArray::at(int index) const
 {
 	yASSERT_X(index >= 0 && index < _size, "yByteArray::back()", "out of range");

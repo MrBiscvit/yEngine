@@ -5,6 +5,12 @@
 class yCORE_API yByteArray
 {
 public:
+	yByteArray();
+	yByteArray(const char * data, int size);
+	yByteArray(const char * data);
+	yByteArray(int count, char charater);
+	yByteArray(char character);
+	~yByteArray();
 
 	inline int size() const { return _size; }
 	inline int length() const { return _size; }
