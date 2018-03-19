@@ -60,7 +60,25 @@ public:
 
 	yByteArray & fill(char character, int size = -1);
 
+	inline yByteArray & operator+=(const yByteArray & other) { return append(other); }
+	inline yByteArray & operator+=(const char * data) { return append(data); }
+	inline yByteArray & operator+=(char character) { return append(character); }
+
+	inline char operator[](int index) const { return at(index); }
+	inline char & operator[](int index) { return at(index); }
+
 private:
 	int _size;
 	char * _data;
 };
+
+inline yByteArray & operator+(const yByteArray & left, const yByteArray & right)
+{ return (yByteArray(left) += right); }
+inline yByteArray & operator+(const yByteArray & left, const char * right)
+{ return (yByteArray(left) += right); }
+inline yByteArray & operator+(const yByteArray & left, char right)
+{ return (yByteArray(left) += right); }
+inline yByteArray & operator+(const char * left, const yByteArray & right)
+{ return (yByteArray(left) += right); }
+inline yByteArray & operator+(char left, const yByteArray & right)
+{ return (yByteArray(left) += right); }
