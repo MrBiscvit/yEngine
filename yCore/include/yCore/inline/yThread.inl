@@ -8,7 +8,7 @@ struct yCORE_API yThreadFunctor : public yThreadFunction
 template<typename T, typename Arg>
 struct yCORE_API yThreadFunctorWithArgument : public yThreadFunction
 {
-	inline yThreadFunctor(T functor, Arg argument) : _func(functor), _arg(argument) { }
+	inline yThreadFunctorWithArgument(T functor, Arg argument) : _func(functor), _arg(argument) { }
 	inline virtual void run() { functor(_arg); }
 	T _func;
 	Arg _arg;
@@ -16,7 +16,7 @@ struct yCORE_API yThreadFunctorWithArgument : public yThreadFunction
 template<typename T, typename Obj>
 struct yCORE_API yThreadMemberFunction : public yThreadFunction
 {
-	inline yThreadFunctor(T(Obj::*function)(), Obj * object) : _func(function), _obj(object) { }
+	inline yThreadMemberFunction(T(Obj::*function)(), Obj * object) : _func(function), _obj(object) { }
 	inline virtual void run() { (_obj->*_func)(); }
 	T(Obj::*_func)();
 	Obj * _obj;
@@ -49,6 +49,5 @@ inline yThread::~yThread()
 {
 	wait();
 	delete _func;
-	if (_priv)
-		delete _priv;
+	deletePrivate();
 }

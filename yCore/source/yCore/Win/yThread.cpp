@@ -133,5 +133,9 @@ void yThread::initPrivate()
 {
 	_priv = new Private;
 }
+void yThread::deletePrivate()
+{
+	delete _priv;
+}
 
 #endif

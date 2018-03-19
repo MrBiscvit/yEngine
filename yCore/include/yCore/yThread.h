@@ -56,6 +56,7 @@ protected:
 
 private:
 	void initPrivate();
+	void deletePrivate();
 
 private:
 	class Private;
