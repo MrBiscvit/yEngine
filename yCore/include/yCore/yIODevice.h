@@ -18,6 +18,7 @@ public:
 	};
 
 public:
+	virtual ~yIODevice() { }
 
 	virtual yint64 bytesAvailable() const { return 0; }
 	virtual yint64 bytesToWrite() const { return 0; }
@@ -26,7 +27,7 @@ public:
 	virtual void close() = 0;
 	virtual bool isOpen() const  = 0;
 
-	virtual bool atEnd() const { return true; }
+	virtual bool atEnd() const { tell() == size(); }
 
 	virtual yint64 read(char * data, yint64 maxSize) = 0;
 	yByteArray read(yint64 maxSize);
