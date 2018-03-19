@@ -114,3 +114,21 @@ void _yon_assert_x(const char * where, const char * what, const char * file, int
 #  define yASSERT(Cond) static_cast<void>(false && (Cond))
 #  define yASSERT_X(Cond, Where, What) static_cast<void>(false && (Cond))
 #endif
+
+//
+// No copy macro:
+//
+//   Put it at start of class implementation with the exact class name in argument.
+//   For example:
+//
+//     class HelloWorld {
+//         yDECL_NO_COPY(HelloWorld)
+//     public:
+//       ....
+//     };
+//
+//
+
+#define yDECL_NO_COPY(Class) \
+Class(const Class &) = delete; \
+Class& operator=(const Class&) = delete;

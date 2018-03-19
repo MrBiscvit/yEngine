@@ -157,6 +157,7 @@
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yMutex.h" />
     <ClInclude Include="include\yCore\yMutexLocker.h" />
+    <ClInclude Include="include\yCore\yThread.h" />
     <ClInclude Include="include\yCore\yTime.h" />
     <ClInclude Include="include\yMath\inline\yMatrix2x2.inl" />
     <ClInclude Include="include\yMath\inline\yMatrix4x4.inl" />
@@ -172,11 +173,13 @@
   <ItemGroup>
     <ClCompile Include="source\yCore\Win\yChrono.cpp" />
     <ClCompile Include="source\yCore\Win\yMutex.cpp" />
+    <ClCompile Include="source\yCore\Win\yThread.cpp" />
     <ClCompile Include="source\yCore\Win\yTime.cpp" />
     <ClCompile Include="source\yCore\yGlobal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\yCore\inline\yChrono.inl" />
+    <None Include="include\yCore\inline\yThread.inl" />
     <None Include="include\yCore\inline\yTime.inl" />
     <None Include="include\yMath\inline\yMatrix3x3.inl" />
     <None Include="include\yMath\inline\yQuaternion.inl" />

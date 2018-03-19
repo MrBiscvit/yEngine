@@ -69,6 +69,9 @@
     <ClInclude Include="include\yCore\yMutexLocker.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\yCore\yThread.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\yCore\yGlobal.cpp">
@@ -81,6 +84,9 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="source\yCore\Win\yMutex.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="source\yCore\Win\yThread.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,5 +112,6 @@
     <None Include="include\yCore\inline\yChrono.inl">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
+    <None Include="include\yCore\inline\yThread.inl" />
   </ItemGroup>
 </Project>

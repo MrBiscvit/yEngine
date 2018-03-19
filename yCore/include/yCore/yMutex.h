@@ -4,6 +4,8 @@
 
 class yCORE_API yMutex
 {
+	yDECL_NO_COPY(yMutex)
+
 public:
 	yMutex();
 	~yMutex();
