@@ -22,7 +22,7 @@ public:
 	virtual yint64 bytesAvailable() const { return 0; }
 	virtual yint64 bytesToWrite() const { return 0; }
 
-	virtual bool open() = 0;
+	virtual bool open(int openMode) = 0;
 	virtual void close() = 0;
 	virtual bool isOpen() = 0;
 
@@ -40,4 +40,12 @@ public:
 
 	inline bool isReadable() const { return bytesAvailable() != 0; }
 	inline bool isWritable() const { return bytesToWrite() != 0; }
+
+	inline int openMode() const { return _openMode; }
+
+protected:
+	inline void setOpenMode(int openMode) { _openMode = openMode; }
+
+private:
+	int _openMode;
 };
