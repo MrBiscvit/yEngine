@@ -1,6 +1,7 @@
 #pragma once
 
 #include <yCore/yCore.h>
+#include <yCore/yByteArray.h>
 
 class yCORE_API yIODevice
 {
@@ -28,7 +29,11 @@ public:
 	virtual bool atEnd() const { return true; }
 
 	virtual yint64 read(char * data, yint64 maxSize) = 0;
+	inline yByteArray read(yint64 maxSize);
+	inline yByteArray readAll() { return read(size()); }
 	virtual yint64 write(const char * data, yint64 maxSize) = 0;
+	inline yint64 write(const char * data) { return write(data, strlen(data)); }
+	inline yint64 write(const yByteArray & array) { return write(array.data(), array.size()); }
 	virtual bool seek(yint64 position) = 0;
 	virtual yint64 tell() const = 0;
 	virtual yint64 size() const { return 0; }
