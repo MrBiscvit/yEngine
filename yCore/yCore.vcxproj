@@ -153,6 +153,7 @@
     <ClInclude Include="include\yCore\yChrono.h" />
     <ClInclude Include="include\yCore\yCore.h" />
     <ClInclude Include="include\yCore\yGlobal.h" />
+    <ClInclude Include="include\yCore\yIODevice.h" />
     <ClInclude Include="include\yCore\yLimits.h" />
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yMutex.h" />
