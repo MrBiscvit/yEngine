@@ -98,6 +98,9 @@
     <ClCompile Include="source\yCore\yByteArray.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="source\yCore\yIODevice.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\yMath\inline\yVector2D.inl">

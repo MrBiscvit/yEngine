@@ -29,7 +29,7 @@ public:
 	virtual bool atEnd() const { return true; }
 
 	virtual yint64 read(char * data, yint64 maxSize) = 0;
-	inline yByteArray read(yint64 maxSize);
+	yByteArray read(yint64 maxSize);
 	inline yByteArray readAll() { return read(size()); }
 	virtual yint64 write(const char * data, yint64 maxSize) = 0;
 	inline yint64 write(const char * data) { return write(data, strlen(data)); }

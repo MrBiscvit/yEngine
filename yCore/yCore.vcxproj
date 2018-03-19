@@ -179,6 +179,7 @@
     <ClCompile Include="source\yCore\Win\yTime.cpp" />
     <ClCompile Include="source\yCore\yByteArray.cpp" />
     <ClCompile Include="source\yCore\yGlobal.cpp" />
+    <ClCompile Include="source\yCore\yIODevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\yCore\inline\yChrono.inl" />
