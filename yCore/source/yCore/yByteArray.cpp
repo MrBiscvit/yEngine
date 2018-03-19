@@ -79,6 +79,8 @@ yByteArray & yByteArray::fill(char character, int size)
 	for (int i(0); i < size; ++i) {
 		_data[i] = character;
 	}
+
+	return *this;
 }
 
 void yByteArray::remove(int pos, int length)
