@@ -15,13 +15,13 @@ bool yFile::open(int openMode)
 	if (openMode & WriteOnly)
 		winOpenMode |= GENERIC_WRITE;
 
-	_handle = (void*)CreateFile(_path.c_str(),
-						        winOpenMode,
-						        FILE_SHARE_DELETE,
-						        NULL,
-						        CREATE_NEW,
-						        0,
-						        NULL);
+	_handle = (yHandle*)CreateFile(_path.c_str(),
+						           winOpenMode,
+						           FILE_SHARE_DELETE,
+						           NULL,
+						           CREATE_NEW,
+						           0,
+						           NULL);
 
 	if (_handle)
 		return true;
