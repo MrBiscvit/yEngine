@@ -23,16 +23,6 @@
 #define yUINT64_MIN (0x0000000000000000u)
 #define yUINT64_MAX (0xFFFFFFFFFFFFFFFFu)
 
-#if (defined(yCC_GNUC) && defined(__SIZEOF_INT128__)) || (defined(_MSC_VER) && _INTEGRAL_MAX_BITS >= 128)
-#define yINT128_MIN  (-170141183460469231731687303715884105727 - 1)
-#define yINT128_MAX  (170141183460469231731687303715884105727)
-#define yUINT128_MIN (0x00000000000000000000000000000000u)
-#define yUINT128_MAX (0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFu)
-#endif
-
-// No 256-bit limits because is too big!
-// No 512-bit limits because is too big!
-
 #define yCHAR_MIN yINT8_MIN
 #define yCHAR_MAX yINT8_MAX
 #define yUCHAR_MIN yUINT8_MIN
@@ -153,18 +143,3 @@ template<> struct yLimits<double>
 	static constexpr double min() noexcept { return yDOUBLE_MIN; }
 	static constexpr double max() noexcept { return yDOUBLE_MAX; }
 };
-#if (defined(yCC_GNUC) && defined(__SIZEOF_INT128__)) || (defined(yCC_MSVC) && _INTEGRAL_MAX_BITS >= 128)
-template<> struct yLimits<yint128>
-{
-	static constexpr yint128 min() noexcept { return yINT128_MIN; }
-	static constexpr yint128 max() noexcept { return yINT128_MAX; }
-};
-template<> struct yLimits<yuint128>
-{
-	static constexpr yuint128 min() noexcept { return yUINT128_MIN; }
-	static constexpr yuint128 max() noexcept { return yUINT128_MAX; }
-};
-#endif
-
-// No 256-bit limits because is too big!
-// No 512-bit limits because is too big!
