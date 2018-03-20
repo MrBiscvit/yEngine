@@ -120,7 +120,6 @@ bool yFile::resize(const std::string & fileName, yint64 size)
 	file.open(fileName, WriteOnly);
 	file.seek(size);
 	return SetEndOfFile(file._handle);
-
 }
 
 #endif
