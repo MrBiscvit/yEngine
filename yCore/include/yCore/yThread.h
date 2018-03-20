@@ -1,6 +1,7 @@
 #pragma once
 
 #include <yCore/yCore.h>
+#include <yCore/yObject.h>
 
 struct yCORE_API yThreadFunction
 {
@@ -9,7 +10,7 @@ struct yCORE_API yThreadFunction
 	inline virtual void run() = 0;
 };
 
-class yCORE_API yThread
+class yCORE_API yThread : public yObject
 {
 	yDECL_NO_COPY(yThread)
 
@@ -27,13 +28,13 @@ public:
 	};
 
 public:
-	inline yThread();
+	inline yThread(yObject * parent = nullptr);
 	template<typename T>
-	inline yThread(T functor);
+	inline yThread(T functor, yObject * parent = nullptr);
 	template<typename T, typename Arg>
-	inline yThread(T functor, Arg argument);
+	inline yThread(T functor, Arg argument, yObject * parent = nullptr);
 	template<typename T, typename Obj>
-	inline yThread(T(Obj::*function)(), Obj * object);
+	inline yThread(T(Obj::*function)(), Obj * object, yObject * parent = nullptr);
 	inline virtual ~yThread();
 
 	bool isRunning() const;

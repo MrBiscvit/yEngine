@@ -2,11 +2,11 @@
 #if defined(yOS_WINDOWS)
 #include <Windows.h>
 
-yFile::yFile() :
+yFile::yFile(yObject * parent) : yIODevice(parent),
 	_handle(nullptr), _path()
 {
 }
-yFile::yFile(const std::string & path) :
+yFile::yFile(const std::string & path, yObject * parent) : yIODevice(parent),
 	_handle(nullptr), _path(path)
 {
 }

@@ -7,6 +7,8 @@
 
 class yCORE_API yFile : public yIODevice
 {
+	yDECL_NO_COPY(yIODevice)
+
 public:
 	enum Permission
 	{
@@ -14,8 +16,8 @@ public:
 	};
 
 public:
-	yFile();
-	yFile(const std::string & path);
+	yFile(yObject * parent = nullptr);
+	yFile(const std::string & path, yObject * parent = nullptr);
 	virtual ~yFile();
 
 	inline virtual yint64 bytesAvailable() const { return size() - tell(); }

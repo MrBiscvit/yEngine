@@ -22,25 +22,25 @@ struct yCORE_API yThreadMemberFunction : public yThreadFunction
 	Obj * _obj;
 };
 
-inline yThread::yThread() :
+inline yThread::yThread(yObject * parent) : yObject(parent),
 	_priv(nullptr), _func(new yThreadMemberFunction<void, yThread>((&yThread::exec), this))
 {
 	initPrivate();
 }
 template<typename T>
-inline yThread::yThread(T functor) :
+inline yThread::yThread(T functor, yObject * parent) : yObject(parent),
 	_priv(nullptr), _func(new yThreadFunctor<T>(functor))
 {
 	initPrivate();
 }
 template<typename T, typename Arg>
-inline yThread::yThread(T functor, Arg argument) :
+inline yThread::yThread(T functor, Arg argument, yObject * parent) : yObject(parent),
 	_priv(nullptr), _func(new yThreadFunctorWithArgument<T, Arg>(functor, argument))
 {
 	initPrivate();
 }
 template<typename T, typename Obj>
-inline yThread::yThread(T(Obj::* function)(), Obj * object) :
+inline yThread::yThread(T(Obj::* function)(), Obj * object, yObject * parent) : yObject(parent),
 	_priv(nullptr), _func(new yThreadMemberFunction<T, Obj>(function, object))
 {
 	initPrivate();

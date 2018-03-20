@@ -1,10 +1,13 @@
 #pragma once
 
 #include <yCore/yCore.h>
+#include <yCore/yObject.h>
 #include <yCore/yByteArray.h>
 
-class yCORE_API yIODevice
+class yCORE_API yIODevice : public yObject
 {
+	yDECL_NO_COPY(yIODevice)
+
 public:
 	enum OpenMode
 	{
@@ -18,6 +21,7 @@ public:
 	};
 
 public:
+	yIODevice(yObject * parent = nullptr) : yObject(parent) { }
 	virtual ~yIODevice() { }
 
 	virtual yint64 bytesAvailable() const { return 0; }
