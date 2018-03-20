@@ -7,7 +7,7 @@
 
 class yCORE_API yFile : public yIODevice
 {
-	yDECL_NO_COPY(yIODevice)
+	yDECL_NO_COPY(yFile)
 
 public:
 	enum Permission
