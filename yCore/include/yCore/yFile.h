@@ -10,6 +10,7 @@ class yCORE_API yFile : public yIODevice
 public:
 	enum Permission
 	{
+
 	};
 
 public:
@@ -17,8 +18,8 @@ public:
 	yFile(const std::string & path);
 	virtual ~yFile();
 
-	virtual yint64 bytesAvailable() const;
-	virtual yint64 bytesToWrite() const;
+	inline virtual yint64 bytesAvailable() const { return size() - tell(); }
+	inline virtual yint64 bytesToWrite() const { return size(); }
 
 	virtual bool open(int openMode);
 	bool open(const std::string & path, int openMode);
