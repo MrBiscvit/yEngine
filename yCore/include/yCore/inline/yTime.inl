@@ -1,4 +1,3 @@
-#include "..\yTime.h"
 inline yTime::yTime() :
 	_ms(0)
 {
