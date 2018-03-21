@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(BOOST)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST)\include\;;$(GLEW)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -100,7 +100,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(BOOST)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST)\include\;;$(GLEW)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -111,7 +111,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(BOOST)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST)\include\;;$(GLEW)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -126,7 +126,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(BOOST)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(BOOST)\include\;;$(GLEW)\include\;$(SolutionDir)yCore\include\;.\include\</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -135,9 +135,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\yEmma\private\yOpenGL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\yEmma\private\yOpenGL.h" />
     <ClInclude Include="include\yEmma\yEmma.h" />
+    <ClInclude Include="include\yEmma\yVideoMode.h" />
+    <ClInclude Include="include\yEmma\yWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="include\yEmma\private\yOpenGL.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

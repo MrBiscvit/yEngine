@@ -22,3 +22,7 @@
 #elif !defined(yUSE_OPENGL) && !defined(yUSE_DIRECT3D)
 #  define yUSE_OPENGL
 #endif
+
+#if defined(yUSE_DIRECT3D)
+#  error DirectX is not supported for the moment!
+#endif
