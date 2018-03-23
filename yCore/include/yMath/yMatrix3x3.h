@@ -79,18 +79,8 @@ inline yTemplateMatrix3x3<T> operator-(const yTemplateMatrix3x3<T> & left, const
 template<typename T>
 inline yTemplateMatrix3x3<T> operator-(const yTemplateMatrix3x3<T> & left, T right);
 
-// yTemplateMatrix3x3 inline implementation
+// Implementation
 #include <yMath/inline/yMatrix3x3.inl>
-
-//
-// Typedefs for yTemplateMatrix3x3:
-//
-//   - yBoolMatrix3x3   -> 3 x 3 boolean matrix
-//   - yIntMatrix3x3    -> 3 x 3 integer matrix
-//   - yFloatMatrix3x3  -> 3 x 3 float matrix
-//   - yDoubleMatrix3x3 -> 3 x 3 double matrix
-//   - yMatrix3x3       -> 3 x 3 real matrix
-//
 
 typedef yTemplateMatrix3x3<bool> yBoolMatrix3x3;
 typedef yTemplateMatrix3x3<int> yIntMatrix3x3;

@@ -70,18 +70,8 @@ inline yTemplateVector2D<T> operator-(const yTemplateVector2D<T> & left, const y
 template<typename T>
 inline yTemplateVector2D<T> operator-(const yTemplateVector2D<T> & left, T right);
 
-// yTemplateVector2D inline implementation
+// Implementation
 #include <yMath/inline/yVector2D.inl>
-
-//
-// Typedefs for yTemplateVector2D:
-//
-//   - yBoolVector2D   -> 2D boolean vector
-//   - yIntVector2D    -> 2D integer vector
-//   - yFloatVector2D  -> 2D float vector
-//   - yDoubleVector2D -> 2D double vector
-//   - yVector2D       -> 2D real vector
-//
 
 typedef yTemplateVector2D<bool> yBoolVector2D;
 typedef yTemplateVector2D<int> yIntVector2D;

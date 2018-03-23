@@ -8,7 +8,7 @@ class yCORE_API yMutexLocker
 	yDECL_NO_COPY(yMutexLocker)
 
 public:
-	inline yMutexLocker(yMutex & mutex) : _mutex(mutex) { relock(); }
+	inline yMutexLocker(yMutex & mutex) : _mutex(mutex) { lock(); }
 	inline ~yMutexLocker() { unlock(); }
 
 	inline yMutex & mutex() const { return _mutex; }

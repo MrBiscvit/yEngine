@@ -76,18 +76,8 @@ inline yTemplateVector4D<T> operator-(const yTemplateVector4D<T> & left, const y
 template<typename T>
 inline yTemplateVector4D<T> operator-(const yTemplateVector4D<T> & left, T right);
 
-// yTemplateVector4D inline implementation
+// Implementation
 #include <yMath/inline/yVector4D.inl>
-
-//
-// Typedefs for yTemplateVector4D:
-//
-//   - yBoolVector4D   -> 4D boolean vector
-//   - yIntVector4D    -> 4D integer vector
-//   - yFloatVector4D  -> 4D float vector
-//   - yDoubleVector4D -> 4D double vector
-//   - yVector4D       -> 4D real vector
-//
 
 typedef yTemplateVector4D<bool> yBoolVector4D;
 typedef yTemplateVector4D<int> yIntVector4D;

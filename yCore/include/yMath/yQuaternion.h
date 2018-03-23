@@ -5,6 +5,8 @@
 #include <yMath/yVector3D.h>
 #include <yMath/yVector4D.h>
 
+// TODO: Finish implementation of yTemplateQuaternion<T>
+
 template<typename T>
 class yCORE_API yTemplateQuaternion
 {
@@ -36,18 +38,8 @@ private:
 	T _x, _y, _z, _w;
 };
 
-// yTemplateQuaternion inline implementation
+// Implementation
 #include <yMath/inline/yQuaternion.inl>
-
-//
-// Typedefs for yTemplateQuaternion:
-//
-//   - yBoolQuaternion   -> boolean quaternion
-//   - yIntQuaternion    -> integer quaternion
-//   - yFloatQuaternion  -> float quaternion
-//   - yDoubleQuaternion -> double quaternion
-//   - yQuaternion       -> real quaternion
-//
 
 typedef yTemplateQuaternion<bool> yBoolQuaternion;
 typedef yTemplateQuaternion<int> yIntQuaternion;

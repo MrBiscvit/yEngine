@@ -154,19 +154,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\yCore\yArray.h" />
     <ClInclude Include="include\yCore\yByteArray.h" />
+    <ClInclude Include="include\yCore\yChar.h" />
     <ClInclude Include="include\yCore\yChrono.h" />
     <ClInclude Include="include\yCore\yCore.h" />
     <ClInclude Include="include\yCore\yGlobal.h" />
-    <ClInclude Include="include\yCore\yIODevice.h" />
-    <ClInclude Include="include\yCore\yLimits.h" />
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yMutex.h" />
     <ClInclude Include="include\yCore\yMutexLocker.h" />
     <ClInclude Include="include\yCore\yObject.h" />
     <ClInclude Include="include\yCore\yThread.h" />
     <ClInclude Include="include\yCore\yTime.h" />
-    <ClInclude Include="include\yCore\yFile.h" />
+    <ClInclude Include="include\yCore\yVector.h" />
     <ClInclude Include="include\yMath\inline\yMatrix2x2.inl" />
     <ClInclude Include="include\yMath\inline\yMatrix4x4.inl" />
     <ClInclude Include="include\yMath\yMath.h" />
@@ -174,20 +174,21 @@
     <ClInclude Include="include\yMath\yMatrix3x3.h" />
     <ClInclude Include="include\yMath\yMatrix4x4.h" />
     <ClInclude Include="include\yMath\yQuaternion.h" />
+    <ClInclude Include="include\yMath\yRatio.h" />
     <ClInclude Include="include\yMath\yVector2D.h" />
     <ClInclude Include="include\yMath\yVector3D.h" />
     <ClInclude Include="include\yMath\yVector4D.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\yArray.cpp" />
     <ClCompile Include="source\yCore\Win\yChrono.cpp" />
     <ClCompile Include="source\yCore\Win\yMutex.cpp" />
     <ClCompile Include="source\yCore\Win\yThread.cpp" />
     <ClCompile Include="source\yCore\Win\yTime.cpp" />
     <ClCompile Include="source\yCore\yByteArray.cpp" />
-    <ClCompile Include="source\yCore\Win\yFile.cpp" />
     <ClCompile Include="source\yCore\yGlobal.cpp" />
-    <ClCompile Include="source\yCore\yIODevice.cpp" />
     <ClCompile Include="source\yCore\yObject.cpp" />
+    <ClCompile Include="source\yCore\yVector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\yCore\inline\yChrono.inl" />

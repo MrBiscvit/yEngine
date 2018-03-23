@@ -22,6 +22,9 @@ public:
 	inline void removeChildren() { _children.clear(); }
 	void removeChild(yObject * object);
 
+	template<class T>
+	inline bool inherit() { return std::is_base_of<T, decltype(this)>; }
+
 private:
 	yObject * _parent;
 	yObjects _children;

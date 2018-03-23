@@ -81,18 +81,8 @@ inline yTemplateMatrix4x4<T> operator-(const yTemplateMatrix4x4<T> & left, const
 template<typename T>
 inline yTemplateMatrix4x4<T> operator-(const yTemplateMatrix4x4<T> & left, T right);
 
-// yTemplateMatrix4x4 inline implementation
+// Implementation
 #include <yMath/inline/yMatrix4x4.inl>
-
-//
-// Typedefs for yTemplateMatrix4x4:
-//
-//   - yBoolMatrix4x4   -> 4 x 4 boolean matrix
-//   - yIntMatrix4x4    -> 4 x 4 integer matrix
-//   - yFloatMatrix4x4  -> 4 x 4 float matrix
-//   - yDoubleMatrix4x4 -> 4 x 4 double matrix
-//   - yMatrix4x4       -> 4 x 4 real matrix
-//
 
 typedef yTemplateMatrix4x4<bool> yBoolMatrix4x4;
 typedef yTemplateMatrix4x4<int> yIntMatrix4x4;

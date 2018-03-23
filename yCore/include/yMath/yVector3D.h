@@ -74,18 +74,8 @@ inline yTemplateVector3D<T> operator-(const yTemplateVector3D<T> & left, const y
 template<typename T>
 inline yTemplateVector3D<T> operator-(const yTemplateVector3D<T> & left, T right);
 
-// yTemplateVector3D inline implementation
+// Implementation
 #include <yMath/inline/yVector3D.inl>
-
-//
-// Typedefs for yTemplateVector3D:
-//
-//   - yBoolVector3D   -> 3D boolean vector
-//   - yIntVector3D    -> 3D integer vector
-//   - yFloatVector3D  -> 3D float vector
-//   - yDoubleVector3D -> 3D double vector
-//   - yVector3D       -> 3D real vector
-//
 
 typedef yTemplateVector3D<bool> yBoolVector3D;
 typedef yTemplateVector3D<int> yIntVector3D;

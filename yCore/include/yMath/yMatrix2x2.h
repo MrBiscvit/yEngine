@@ -75,18 +75,8 @@ inline yTemplateMatrix2x2<T> operator-(const yTemplateMatrix2x2<T> & left, const
 template<typename T>
 inline yTemplateMatrix2x2<T> operator-(const yTemplateMatrix2x2<T> & left, T right);
 
-// yTemplateMatrix2x2 inline implementation
+// Implementation
 #include <yMath/inline/yMatrix2x2.inl>
-
-//
-// Typedefs for yTemplateMatrix2x2:
-//
-//   - yBoolMatrix2x2   -> 2 x 2 boolean matrix
-//   - yIntMatrix2x2    -> 2 x 2 integer matrix
-//   - yFloatMatrix2x2  -> 2 x 2 float matrix
-//   - yDoubleMatrix2x2 -> 2 x 2 double matrix
-//   - yMatrix2x2       -> 2 x 2 real matrix
-//
 
 typedef yTemplateMatrix2x2<bool> yBoolMatrix2x2;
 typedef yTemplateMatrix2x2<int> yIntMatrix2x2;

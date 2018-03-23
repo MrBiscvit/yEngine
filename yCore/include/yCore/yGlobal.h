@@ -10,6 +10,11 @@
 
 #define yVERSION(Major, Minor, Patch) ((Major << 16) + (Minor << 8) + (Patch))
 
+#if defined(yCC_MSVC)
+// Useful errors
+#pragma warning(disable: 4251)
+#endif
+
 // 
 // Typedefs for integer and real types:
 //
@@ -17,12 +22,6 @@
 //   - yint16  or yuint16  -> 16-bit  signed/unsigned integer (native type)
 //   - yint32  or yuint32  -> 32-bit  signed/unsigned integer (native type)
 //   - yint64  or yuint64  -> 64-bit  signed/unsigned integer (native type)
-//
-//   - ybyte                   -> 8-bit  unsigned integer (native type)
-//   - ychar     or yuchar     -> 8-bit  signed/unsigned integer (native type)
-//   - yshort    or yushort    -> 16-bit signed/unsigned integer (native type)
-//   - yint      or yuint      -> 32-bit signed/unsigned integer (native type)
-//   - ylonglong or yulonglong -> 64-bit signed/unsigned integer (native type)
 //
 //   - yreal -> typedefs for yREAL_TYPE macro, and if not defined for float
 // 
@@ -52,11 +51,6 @@ typedef unsigned long long yuint64;
 #endif
 
 typedef yuint8 ybyte;
-typedef yint8 ychar;
-typedef yuint8 yuchar;
-typedef yint16 yshort;
-typedef yuint16 yushort;
-typedef yint32 yint;
 typedef yuint32 yuint;
 typedef yint64 ylonglong;
 typedef yuint64 yulonglong;

@@ -38,5 +38,5 @@ inline yTime operator/(const yTime & value1, const yTime & value2);
 inline yTime operator+(const yTime & value1, const yTime & value2);
 inline yTime operator-(const yTime & value1, const yTime & value2);
 
-// yTime inline implementation
+// Implementation
 #include <yCore/inline/yTime.inl>

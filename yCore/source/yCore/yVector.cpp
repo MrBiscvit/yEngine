@@ -1,54 +1,50 @@
-#include <yCore/yByteArray.h>
+#include <yCore/yVector.h>
 
-yByteArray::yByteArray()
+template<typename T>
+yVector<T>::yVector()
 {
 	reserve(0);
 	_size = 0;
 	_capacity = 0;
 }
-yByteArray::yByteArray(int size)
+template<typename T>
+yVector<T>::yVector(int size)
 {
 	reserve(size);
 	_size = size;
 }
-yByteArray::yByteArray(int size, const ybyte & byte)
+template<typename T>
+yVector<T>::yVector(int size, const T & value)
 {
-	resize(size, byte);
+	resize(size, value);
 }
-yByteArray::yByteArray(int size, const char & byte)
-{
-	resize(size, byte);
-}
-yByteArray::yByteArray(const ybyte * bytes, int size)
+template<typename T>
+yVector<T>::yVector(const T * values, int size)
 {
 	reserve(size);
 	_size = size;
 	for (int i(0); i < _size; ++i)
-		_data[i] = bytes[i];
+		_data[i] = values[i];
 }
-yByteArray::yByteArray(const char * bytes, int size)
+template<typename T>
+yVector<T>::yVector(const std::vector<T>& vec)
 {
-	reserve(size);
-	_size = size;
+	reserve(vec.size());
+	_size = vec.size();
 	for (int i(0); i < _size; ++i)
-		_data[i] = (ybyte)bytes[i];
+		_data[i] = vec[i];
 }
-yByteArray::yByteArray(const char * string)
-{
-	_size = strlen(string);
-	reserve(_size);
-	for (int i(0); i < _size; ++i)
-		_data[i] = (ybyte)string[i];
-}
-yByteArray::yByteArray(std::initializer_list<ybyte>& list)
+template<typename T>
+yVector<T>::yVector(std::initializer_list<T>& list)
 {
 	reserve(list.size());
 	_size = list.size();
 	for (int i(0); i < _size; ++i)
 		_data[i] = list.begin()[i];
 }
+template<typename T>
 template<typename InputIterator>
-yByteArray::yByteArray(InputIterator first, InputIterator last)
+inline yVector<T>::yVector(InputIterator first, InputIterator last)
 {
 	int size = last - first;
 	reserve(size);
@@ -56,65 +52,70 @@ yByteArray::yByteArray(InputIterator first, InputIterator last)
 	for (int i(0); i < size; ++i)
 		_data[i] = first[i];
 }
-yByteArray::~yByteArray()
+template<typename T>
+yVector<T>::~yVector()
 {
 	clear();
 }
 
-void yByteArray::clear()
+template<typename T>
+void yVector<T>::clear()
 {
 	if (_data)
-		delete[ ] _data;
+		delete[] _data;
 
 	_size = 0;
 	_capacity = 0;
 }
-void yByteArray::reserve(int size)
+template<typename T>
+void yVector<T>::reserve(int size)
 {
 	if (size <= _size + _capacity)
 		return;
 
 	if (_data) {
-		ybyte * tmp = new ybyte[_size];
+		T * tmp = new T[_size];
 		memcpy(tmp, _data, _size);
-		delete[ ] _data;
-		_data = new ybyte[_size + _capacity + size];
+		delete[] _data;
+		_data = new T[_size + _capacity + size];
 		memmove(_data, tmp, _size);
 		_capacity += size;
 	} else {
-		_data = new ybyte[size];
+		_data = new T[size];
 		_capacity = size;
 		_size = 0;
 	}
 }
-void yByteArray::squeeze()
+template<typename T>
+void yVector<T>::squeeze()
 {
 	if (_capacity == 0 || !_data)
 		return;
 
-	ybyte * tmp = new ybyte[_size];
+	T * tmp = new T[_size];
 	memcpy(tmp, _data, _size);
-	delete[ ] _data;
-	_data = new ybyte[_size];
+	delete[] _data;
+	_data = new T[_size];
 	memmove(_data, tmp, _size);
 	_capacity = 0;
 }
-void yByteArray::resize(int size, ybyte fill)
+template<typename T>
+void yVector<T>::resize(int size, T fill)
 {
 	int preSize = _size;
 
 	if (_data) {
-		ybyte * tmp = new ybyte[_size];
+		T * tmp = new T[_size];
 		memcpy(tmp, _data, _size);
-		delete[ ] _data;
-		_data = new ybyte[size];
+		delete[] _data;
+		_data = new T[size];
 		memmove(_data, tmp, std::min(size, _size));
 		_size = size;
 		_capacity -= size;
 		if (_capacity < 0)
 			_capacity = 0;
 	} else {
-		_data = new ybyte[size];
+		_data = new T[size];
 		_capacity = 0;
 		_size = size;
 	}
@@ -126,7 +127,8 @@ void yByteArray::resize(int size, ybyte fill)
 		_data[i] = fill;
 }
 
-yByteArray& yByteArray::insert(int index, const ybyte & byte)
+template<typename T>
+yVector<T>& yVector<T>::insert(int index, const T & value)
 {
 	yASSERT(index >= 0 && index <= _size);
 
@@ -136,11 +138,19 @@ yByteArray& yByteArray::insert(int index, const ybyte & byte)
 	for (int i(_size); i >= index; --i)
 		_data[i + 1] = _data[i];
 
-	_data[index] = byte;
+	_data[index] = value;
 
 	return *this;
 }
-yByteArray& yByteArray::insert(int index, const yByteArray& vec)
+template<typename T>
+yVector<T>& yVector<T>::insert(int index, T && value)
+{
+	insert(index, value);
+	value = T();
+	return *this;
+}
+template<typename T>
+yVector<T>& yVector<T>::insert(int index, const yVector<T>& vec)
 {
 	yASSERT(index >= 0 && index <= _size);
 
@@ -157,7 +167,8 @@ yByteArray& yByteArray::insert(int index, const yByteArray& vec)
 	return *this;
 }
 
-yByteArray & yByteArray::append(const ybyte & value)
+template<typename T>
+yVector<T> & yVector<T>::append(const T & value)
 {
 	if (_capacity <= 0)
 		reserve(1);
@@ -166,7 +177,15 @@ yByteArray & yByteArray::append(const ybyte & value)
 	++_size;
 	return *this;
 }
-yByteArray & yByteArray::append(const yByteArray& vec)
+template<typename T>
+yVector<T> & yVector<T>::append(T && value)
+{
+	append(value);
+	value = T();
+	return *this;
+}
+template<typename T>
+yVector<T> & yVector<T>::append(const yVector<T>& vec)
 {
 	int remainingCapacity = _capacity - vec._size;
 	if (remainingCapacity <= 0)
@@ -181,7 +200,8 @@ yByteArray & yByteArray::append(const yByteArray& vec)
 	return *this;
 }
 
-yByteArray& yByteArray::prepend(const ybyte & value)
+template<typename T>
+yVector<T>& yVector<T>::prepend(const T & value)
 {
 	if (_capacity <= 0)
 		reserve(1);
@@ -194,7 +214,15 @@ yByteArray& yByteArray::prepend(const ybyte & value)
 
 	return *this;
 }
-yByteArray& yByteArray::prepend(const yByteArray& vec)
+template<typename T>
+yVector<T>& yVector<T>::prepend(T && value)
+{
+	prepend(value);
+	value = T();
+	return *this;
+}
+template<typename T>
+yVector<T>& yVector<T>::prepend(const yVector<T>& vec)
 {
 	int remainingCapacity = _capacity - vec._size;
 	if (remainingCapacity <= 0)
@@ -212,7 +240,8 @@ yByteArray& yByteArray::prepend(const yByteArray& vec)
 	return *this;
 }
 
-yByteArray & yByteArray::remove(int index)
+template<typename T>
+yVector<T> & yVector<T>::remove(int index)
 {
 	yASSERT(index >= 0 && index < _size);
 
@@ -224,7 +253,8 @@ yByteArray & yByteArray::remove(int index)
 
 	return *this;
 }
-yByteArray & yByteArray::remove(int index, int length)
+template<typename T>
+yVector<T> & yVector<T>::remove(int index, int length)
 {
 	yASSERT(index >= 0 && index < _size);
 	yASSERT(index + length < _size);
@@ -237,7 +267,8 @@ yByteArray & yByteArray::remove(int index, int length)
 
 	return *this;
 }
-yByteArray& yByteArray::removeAll(const ybyte & t)
+template<typename T>
+yVector<T>& yVector<T>::removeAll(const T & t)
 {
 	int index(-1);
 	while ((index = indexOf(t)) != -1) {
@@ -246,23 +277,26 @@ yByteArray& yByteArray::removeAll(const ybyte & t)
 
 	return *this;
 }
-yByteArray& yByteArray::removeOne(const ybyte & t)
+template<typename T>
+yVector<T>& yVector<T>::removeOne(const T & t)
 {
 	int index = indexOf(t);
 	if (index != -1)
 		remove(index);
-
+		
 	return *this;
 }
 
-void yByteArray::replace(int index, const ybyte & value)
+template<typename T>
+void yVector<T>::replace(int index, const T & value)
 {
 	yASSERT(index >= 0 && index < _size);
 
 	_data[index] = value;
 }
 
-int yByteArray::count(const ybyte & value) const
+template<typename T>
+int yVector<T>::count(const T & value) const
 {
 	int c(0);
 	for (const_iterator it(begin()); it != end(); ++it)
@@ -270,7 +304,8 @@ int yByteArray::count(const ybyte & value) const
 			++c;
 	return c;
 }
-int yByteArray::indexOf(const ybyte & value, int from) const
+template<typename T>
+int yVector<T>::indexOf(const T & value, int from) const
 {
 	if (from >= _size)
 		return -1;
@@ -283,7 +318,8 @@ int yByteArray::indexOf(const ybyte & value, int from) const
 
 	return -1;
 }
-int yByteArray::lastIndexOf(const ybyte & value, int from) const
+template<typename T>
+int yVector<T>::lastIndexOf(const T & value, int from) const
 {
 	if (from >= _size)
 		return -1;
@@ -297,14 +333,15 @@ int yByteArray::lastIndexOf(const ybyte & value, int from) const
 	return -1;
 }
 
-yByteArray yByteArray::mid(int pos, int length) const
+template<typename T>
+yVector<T> yVector<T>::mid(int pos, int length) const
 {
 	yASSERT(pos >= 0 && pos < _size);
 	if (length < 0)
 		length = _size - pos - 1;
 	yASSERT(pos + length < _size);
 
-	yByteArray vec;
+	yVector<T> vec;
 	vec.reserve(length);
 
 	for (int i(pos); i < length; ++i)

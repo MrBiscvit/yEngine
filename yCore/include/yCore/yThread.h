@@ -65,5 +65,5 @@ private:
 	yThreadFunction * _func;
 };
 
-// yThread inline implementation
+// Implementation
 #include <yCore/inline/yThread.inl>
