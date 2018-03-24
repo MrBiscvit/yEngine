@@ -18,7 +18,7 @@
 #endif
 
 #if defined(yUSE_OPENGL) && defined(yUSE_DIRECT3D)
-#  error You can only define one of these macros: yUSE_OPENGL & yUSE_DIRECT3D
+#  error You can only define one of these macros: yUSE_OPENGL or yUSE_DIRECT3D
 #elif !defined(yUSE_OPENGL) && !defined(yUSE_DIRECT3D)
 #  define yUSE_OPENGL
 #endif
