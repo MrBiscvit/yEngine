@@ -148,10 +148,9 @@
   <ItemGroup>
     <ClInclude Include="include\yEmma\Direct3D\yDirect3D.h" />
     <ClInclude Include="include\yEmma\OpenGL\yOpenGL.h" />
+    <ClInclude Include="include\yEmma\yBuffer.h" />
     <ClInclude Include="include\yEmma\yColor.h" />
     <ClInclude Include="include\yEmma\yEmma.h" />
-    <ClInclude Include="include\yEmma\yIndexBuffer.h" />
-    <ClInclude Include="include\yEmma\yVertexBuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
