@@ -53,7 +53,7 @@ public:
 	inline const ybyte & at(int index) const { return _data[index]; }
 	inline ybyte & at(int index) { yASSERT(index >= 0 && index < _size); return _data[index]; }
 	inline ybyte value(int index, const ybyte & defaultVal = (ybyte)'\0') const { return (index >= 0 && index < _size) ? at(index) : defaultVal; }
-	inline ybyte value(int index, const char & defaultVal = '\0') const { return value(index, defaultVal); }
+	inline ybyte value(int index, const char & defaultVal = '\0') const { return value(index, (ybyte)defaultVal); }
 
 	inline ybyte * data() { return _data; }
 	inline const ybyte * data() const { return _data; }

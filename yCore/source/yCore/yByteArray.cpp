@@ -35,15 +35,15 @@ yByteArray::yByteArray(const char * bytes, int size)
 }
 yByteArray::yByteArray(const char * string)
 {
-	_size = strlen(string);
+	_size = int(strlen(string));
 	reserve(_size);
 	for (int i(0); i < _size; ++i)
 		_data[i] = (ybyte)string[i];
 }
 yByteArray::yByteArray(std::initializer_list<ybyte>& list)
 {
-	reserve(list.size());
-	_size = list.size();
+	reserve(int(list.size()));
+	_size = int(list.size());
 	for (int i(0); i < _size; ++i)
 		_data[i] = list.begin()[i];
 }
