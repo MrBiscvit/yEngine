@@ -87,6 +87,7 @@ public:
 	inline void setKeyF(yreal key) { setKey(yRound(key * 0xFF)); }
 
 	yHsl hsl() const;
+	// TODO: Implement functions for HSL -> RGB
 
 	inline yuint16 hslHue() const { return hsl().hue; }
 	inline yuint8 hslSaturation() const { return hsl().saturation; }
