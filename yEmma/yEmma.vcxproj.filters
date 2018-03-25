@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="source\yEmma\OpenGL\yVertexBuffer.cpp">
+    <ClCompile Include="source\yEmma\yColor.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,10 +32,13 @@
     <ClInclude Include="include\yEmma\yColor.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\yEmma\yIndexBuffer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
     <ClInclude Include="include\yEmma\yVertexBuffer.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\yEmma\yIndexBuffer.h">
+    <ClInclude Include="include\yEmma\Direct3D\yDirect3D.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
