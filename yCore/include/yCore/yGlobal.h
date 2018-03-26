@@ -77,12 +77,13 @@ void _yon_assert_x(const char * where, const char * what, const char * file, int
 #endif
 
 // Declare a class no copyable
-
 #define yDECL_NO_COPY(Class) \
 Class(const Class &) = delete; \
 Class& operator=(const Class&) = delete;
 
-// Stringify macro
+// Declare variable unused, avoid some warnings for compilers
+#define yUNUSED(X) (void)X
 
+// Stringify macro
 #define _ySTRINGIFY(X) #X
 #define ySTRINGIFY(X) _ySTRINGIFY(X)
