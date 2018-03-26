@@ -143,12 +143,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\yEmma\OpenGL\yOpenGL.cpp" />
     <ClCompile Include="source\yEmma\yColor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\yEmma\Direct3D\yDirect3D.h" />
     <ClInclude Include="include\yEmma\OpenGL\yOpenGL.h" />
-    <ClInclude Include="include\yEmma\yBuffer.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_1.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_2.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_3.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_4.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGLClass.h" />
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGLCore.h" />
     <ClInclude Include="include\yEmma\yColor.h" />
     <ClInclude Include="include\yEmma\yEmma.h" />
   </ItemGroup>

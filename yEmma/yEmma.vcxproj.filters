@@ -21,6 +21,9 @@
     <ClCompile Include="source\yEmma\yColor.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="source\yEmma\OpenGL\yOpenGL.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\yEmma\yEmma.h">
@@ -35,7 +38,22 @@
     <ClInclude Include="include\yEmma\Direct3D\yDirect3D.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\yEmma\yBuffer.h">
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_1.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_2.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGLCore.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGLClass.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_3.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\yEmma\OpenGL\yOpenGL1_4.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

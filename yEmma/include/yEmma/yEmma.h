@@ -27,6 +27,11 @@
 #  endif
 #endif
 
+// TODO: Remove this macros
+// Only for OpenGL implementation
+#undef yUSE_DIRECT3D
+#define yUSE_OPENGL
+
 #if defined(yUSE_DIRECT3D)
 #  if !defined(yUSE_DIRECT3D_12) && !defined(yUSE_DIRECT3D_11) && !defined(yUSE_DIRECT3D_9)
 #    define yUSE_DIRECT3D_11
