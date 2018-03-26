@@ -8,69 +8,55 @@
 #include <algorithm>
 #include <string>
 
+// Version macro
 #define yVERSION(Major, Minor, Patch) ((Major << 16) + (Minor << 8) + (Patch))
 
+// Useless compiler-generated warnings
 #if defined(yCC_MSVC)
-// Useful errors
-#pragma warning(disable: 4251)
+#pragma warning(disable: 4251) // Incorrect DLL-interface
 #endif
 
-// 
-// Typedefs for integer and real types:
-//
-//   - yint8   or yuint8   -> 8-bit   signed/unsigned integer (native type)
-//   - yint16  or yuint16  -> 16-bit  signed/unsigned integer (native type)
-//   - yint32  or yuint32  -> 32-bit  signed/unsigned integer (native type)
-//   - yint64  or yuint64  -> 64-bit  signed/unsigned integer (native type)
-//
-//   - yreal -> typedefs for yREAL_TYPE macro, and if not defined for float
-// 
+// Useful typedefs
 
 #if defined(yCC_MSVC)
-typedef signed __int8    yint8;
-typedef signed __int16   yint16;
-typedef signed __int32   yint32;
-typedef signed __int64   yint64;
+typedef signed __int8    yint8;	 // 8-bit signed integer
+typedef signed __int16   yint16; // 16-bit signed integer
+typedef signed __int32   yint32; // 32-bit signed integer
+typedef signed __int64   yint64; // 64-bit signed integer
 #else
-typedef signed char      yint8;
-typedef signed short     yint16;
-typedef signed int       yint32;
-typedef signed long long yint64;
+typedef signed char      yint8;	 // 8-bit signed integer
+typedef signed short     yint16; // 16-bit signed integer
+typedef signed int       yint32; // 32-bit signed integer
+typedef signed long long yint64; // 64-bit signed integer
 #endif
 
 #if defined(yCC_MSVC)
-typedef unsigned __int8    yuint8;
-typedef unsigned __int16   yuint16;
-typedef unsigned __int32   yuint32;
-typedef unsigned __int64   yuint64;
+typedef unsigned __int8    yuint8;	// 8-bit unsigned integer
+typedef unsigned __int16   yuint16;	// 16-bit unsigned integer
+typedef unsigned __int32   yuint32;	// 32-bit unsigned integer
+typedef unsigned __int64   yuint64;	// 64-bit unsigned integer
 #else
-typedef unsigned char      yuint8;
-typedef unsigned short     yuint16;
-typedef unsigned int       yuint32;
-typedef unsigned long long yuint64;
+typedef unsigned char      yuint8;	// 8-bit unsigned integer
+typedef unsigned short     yuint16;	// 16-bit unsigned integer
+typedef unsigned int       yuint32;	// 32-bit unsigned integer
+typedef unsigned long long yuint64;	// 64-bit unsigned integer
 #endif
 
-typedef yuint8 ybyte;
-typedef yuint32 yuint;
-typedef yint64 ylonglong;
-typedef yuint64 yulonglong;
+typedef yuint8 ybyte;  // unsigned byte
+typedef yuint32 yuint; // unsigned integer
+typedef yint64 ylonglong;   // signed long long integer
+typedef yuint64 yulonglong; // unsigned long long integer
 
 #if defined(yREAL_TYPE)
-typedef yREAL_TYPE yreal;
+typedef yREAL_TYPE yreal; // real number
 #else
-typedef float yreal;
+typedef float yreal;      // real number
 #endif
 
-typedef void * yHandle;
-typedef void(*yFunction)();
+typedef void * yHandle; // OS-independent handle
+typedef void(*yFunction)(); // function pointer
 
-//
-// Assertion macro:
-//
-//   - yASSERT   -> If condition is false, abort the program and print error message with the file and line.
-//   - yASSERT_X -> If condition is false, abort the program and print error message with your where 
-//                  and what message with the file and the line.
-//
+// Assert macros and functions
 
 #if defined(yCC_MSVC)
 __declspec(noreturn)
@@ -90,20 +76,13 @@ void _yon_assert_x(const char * where, const char * what, const char * file, int
 #  define yASSERT_X(Cond, Where, What) static_cast<void>(false && (Cond))
 #endif
 
-//
-// No copy macro:
-//
-//   Put it at start of class implementation with the exact class name in argument.
-//   For example:
-//
-//     class HelloWorld {
-//         yDECL_NO_COPY(HelloWorld)
-//     public:
-//       ....
-//     };
-//
-//
+// Declare a class no copyable
 
 #define yDECL_NO_COPY(Class) \
 Class(const Class &) = delete; \
 Class& operator=(const Class&) = delete;
+
+// Stringify macro
+
+#define _ySTRINGIFY(X) #X
+#define ySTRINGIFY(X) _ySTRINGIFY(X)
