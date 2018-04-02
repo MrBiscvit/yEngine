@@ -1,135 +1,161 @@
+// 
+// MIT License
+// 
+// Copyright(c) 2018 Hubert Gruniaux
+// 
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files(the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions :
+// 
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+// 
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// 
+
 #pragma once
 
 #include <yCore/yCore.h>
 #include <initializer_list>
-#include <vector>
+#include <iterator>
+#include <algorithm>
 
 template<typename T>
 class yCORE_API yVector
 {
 public:
-	yVector();
-	yVector(int size);
-	yVector(int size, const T & value);
-	yVector(const T * values, int size);
-	yVector(const std::vector<T> & vec);
-	yVector(std::initializer_list<T> & list);
-	template<typename InputIterator>
-	yVector(InputIterator first, InputIterator last);
-	virtual ~yVector();
+	// STL typedefs
+	typedef T value_type;
+	typedef T & reference;
+	typedef const T & const_reference;
+	typedef T * pointer;
+	typedef const T * const_pointer;
+	typedef ptrdiff_t difference_type;
+	typedef size_t size_type;
 
-	typedef T * iterator;
-	typedef const T * const_iterator;
-	typedef iterator Iterator;
-	typedef const_iterator ConstIterator;
+	// Forward declaration
+	class const_iterator;
+
+	// Iterator
+	class iterator
+	{
+	private:
+		T * _p;
+		friend class yVector<T>;
+
+	public:
+		inline iterator() : _p(nullptr) { }
+		inline iterator(T * p) : _p(p) { }
+		inline iterator(const yVector<T> & vec) : _p(vec._data) { }
+
+		// STL-style iterator
+		inline iterator & operator++() { ++_p; return *this; }
+		inline iterator operator++(int) const { iterator t(*this); ++_p; return t; }
+		inline iterator & operator--() { --_p; return *this; }
+		inline iterator operator--(int) const { iterator t(*this); --_p; return t; }
+		inline iterator & operator+=(difference_type diff) { _p += diff; return *this; }
+		inline iterator operator+(difference_type diff) const { iterator t(*this); t += diff; return t; }
+		inline iterator & operator-=(difference_type diff) { _p -= diff; return *this; }
+		inline iterator operator-(difference_type diff) const { iterator t(*this); t -= diff; return t; }
+		inline iterator operator[](difference_type diff) const { return operator+(diff); }
+		inline T & operator*() { return (*_p); }
+		inline T * operator->() { return _p; }
+		inline bool operator<(const iterator & other) const { return _p < other._p; }
+		inline bool operator<=(const iterator & other) const { return _p <= other._p; }
+		inline bool operator>(const iterator & other) const { return _p > other._p; }
+		inline bool operator>=(const iterator & other) const { return _p >= other._p; }
+		inline bool operator==(const iterator & other) const { return _p == other._p; }
+		inline bool operator!=(const iterator & other) const { return _p != other._p; }
+
+		// Java-style iterator
+		inline bool hasNext() const { return (_p++) != nullptr; }
+		inline bool hasPrevious() const { return (_p--) != nullptr; }
+		inline T & next() { ++_p; return (*_p); }
+		inline T & peekNext() { return (*(_p++)); }
+		inline T & previous() { --_p; return (*_p); }
+		inline T & peekPrevious() { return (*(_p--)); }
+	};
+
+	// Constant iterator
+	class const_iterator
+	{
+	private:
+		const T * _p;
+		friend class yVector<T>;
+
+	public:
+		inline const_iterator() : _p(nullptr) { }
+		inline const_iterator(T * p) : _p(p) { }
+		inline const_iterator(const iterator & it) : _p(it._p) { }
+		inline const_iterator(const yVector<T> & vec) : _p(vec._data) { }
+
+		// STL-style iterator
+		inline iterator & operator++() { ++_p; return *this; }
+		inline iterator operator++(int) const { iterator t(*this); ++_p; return t; }
+		inline iterator & operator--() { --_p; return *this; }
+		inline iterator operator--(int) const { iterator t(*this); --_p; return t; }
+		inline iterator & operator+=(difference_type diff) { _p += diff; return *this; }
+		inline iterator operator+(difference_type diff) const { iterator t(*this); t += diff; return t; }
+		inline iterator & operator-=(difference_type diff) { _p -= diff; return *this; }
+		inline iterator operator-(difference_type diff) const { iterator t(*this); t -= diff; return t; }
+		inline iterator operator[](difference_type diff) const { return operator+(diff); }
+		inline const T & operator*() { return (*_p); }
+		inline const T * operator->() { return _p; }
+		inline bool operator<(const iterator & other) const { return _p < other._p; }
+		inline bool operator<=(const iterator & other) const { return _p <= other._p; }
+		inline bool operator>(const iterator & other) const { return _p > other._p; }
+		inline bool operator>=(const iterator & other) const { return _p >= other._p; }
+		inline bool operator==(const iterator & other) const { return _p == other._p; }
+		inline bool operator!=(const iterator & other) const { return _p != other._p; }
+
+		// Java-style iterator
+		inline bool hasNext() const { return (_p++) != nullptr; }
+		inline bool hasPrevious() const { return (_p--) != nullptr; }
+		inline const T & next() { ++_p; return (*_p); }
+		inline const T & peekNext() { return (*(_p++)); }
+		inline const T & previous() { --_p; return (*_p); }
+		inline const T & peekPrevious() { return (*(_p--)); }
+	};
+
+	friend class iterator;
+	friend class const_iterator;
+
+	// Reverse iterators
 	typedef std::reverse_iterator<iterator> reverse_iterator;
 	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
 
-	typedef int size_type;
-	typedef yint64 difference_type;
-	typedef const T & const_reference;
-	typedef T & reference;
-	typedef const T * const_pointer;
-	typedef T * pointer;
-	typedef T value_type;
+	// Java typedefs
+	typedef iterator Iterator;
+	typedef reverse_iterator ReverseIterator;
+	typedef const_iterator ConstIterator;
+	typedef const_reverse_iterator ConstReverseIterator;
 
-	inline int size() const { return _size; }
-	inline int length() const { return _size; }
-	inline int count() const { return _size; }
-	inline bool empty() const { return _size == 0; }
-	inline bool isEmpty() const { return _size == 0; }
+	inline size_type size() const { return _size; }
+	inline size_type length() const { return _size; }
+	inline size_type count() const { return _size; }
+	inline bool empty() const { return !_size; }
+	inline bool isEmpty() const { return !_size; }
 
-	inline T & front() { return at(0); }
-	inline const T & front() const { return at(0); }
-	inline T & first() { return front(); }
-	inline const T & first() const { return front(); }
-	inline const T & constFirst() const { return front(); }
-	inline T & back() { return at(_size - 1); }
-	inline const T & back() const { return at(_size - 1); }
-	inline T & last() { return back(); }
-	inline const T & last() const { return back(); }
-	inline const T & constLast() const { return back(); }
-	inline const T & at(int index) const { return _data[index]; }
-	inline T & at(int index) { yASSERT(index >= 0 && index < _size); return _data[index]; }
-	inline T value(int index, const T & defaultVal = T()) const { return (index >= 0 && index < _size) ? at(index) : defaultVal; }
-
-	inline T * data() { return _data; }
-	inline const T * data() const { return _data; }
-	inline const T * constData() const { return _data; }
-
+	void reserve(size_type size);
+	void resize(size_type size, const T & value = T());
 	void clear();
-	void reserve(int size);
 	void squeeze();
 	inline void shrink_to_fit() { squeeze(); }
-	inline int capacity() const { return _capacity; }
-	void resize(int size, T fill = T());
+	inline size_type capacity() const { return _capacity; }
 
-	inline iterator begin() { return _data; }
-	inline const_iterator begin() const { return _data; }
-	inline const_iterator cbegin() const { return _data; }
-	inline const_iterator constBegin() const { return _data; }
-	inline iterator end() { return _data + _size; }
-	inline const_iterator end() const { return _data + _size; }
-	inline const_iterator cend() const { return _data + _size; }
-	inline const_iterator constEnd() const { return _data + _size; }
-	inline reverse_iterator rbegin() { return reverse_iterator(begin()); }
-	inline const_reverse_iterator rbegin() const { return const_reverse_iterator(cbegin()); }
-	inline const_reverse_iterator crbegin() const { return const_reverse_iterator(cbegin()); }
-	inline reverse_iterator rend() { return reverse_iterator(end()); }
-	inline const_reverse_iterator rend() const { return const_reverse_iterator(cend()); }
-	inline const_reverse_iterator crend() const { return const_reverse_iterator(cend()); }
 
-	yVector<T> & insert(int index, const T & value);
-	yVector<T> & insert(int index, T && value);
-	yVector<T> & insert(int index, const yVector<T> & vec);
-
-	yVector<T> & append(const T & value);
-	yVector<T> & append(T && value);
-	yVector<T> & append(const yVector<T> & vec);
-	inline yVector<T> & push_back(const T & value) { return append(value); }
-	inline yVector<T> & push_back(T && value) { return append(value); }
-	inline yVector<T> & push_back(const yVector<T> & vec) { return append(vec); }
-
-	yVector<T> & prepend(const T & value);
-	yVector<T> & prepend(T && value);
-	yVector<T> & prepend(const yVector<T> & vec);
-	inline yVector<T> & push_front(const T & value) { return prepend(value); }
-	inline yVector<T> & push_front(T && value) { return prepend(value); }
-	inline yVector<T> & push_front(const yVector<T> & vec) { return prepend(vec); }
-
-	yVector<T> & remove(int index);
-	yVector<T> & remove(int index, int length);
-	yVector<T> & removeAll(const T & t);
-	yVector<T> & removeOne(const T & t);
-	inline yVector<T> & removeAt(int i) { return remove(i); }
-	inline yVector<T> & removeFirst() { return remove(0); }
-	inline yVector<T> & removeLast() { return remove(_size - 1); }
-	inline yVector<T> & pop_front() { return removeFirst(); }
-	inline yVector<T> & pop_back() { return removeLast(); }
-
-	inline iterator erase(iterator position) { iterator t = position + 1; remove(int(position - begin())); }
-	inline iterator erase(iterator first, iterator last) { iterator t = last + 1; remove(int(first - begin()), int(first - begin() + last - first)); }
-
-	inline T takeAt(int index) { T t = at(index); remove(index); return index; }
-	inline T takeFirst() { T t = first(); removeFirst(); return t; }
-	inline T takeLast() { T t = last(); removeLast(); return t; }
-
-	void replace(int index, const T & value);
-		
-	int count(const T & value) const;
-	int indexOf(const T & value, int from = 0) const;
-	int lastIndexOf(const T & value, int from = 0) const;
-	inline bool contains(const T & value) const { return indexOf(value) != -1; }
-
-	inline bool startsWith(const T & value) const { yASSERT(!isEmpty()); return _data[0] == value; }
-	inline bool endsWith(const T & value) const { yASSERT(!isEmpty()); return _data[_size - 1] == value; }
-
-	yVector<T> mid(int pos, int length = -1) const;
-	inline yVector<T> left(int length) const { return mid(0, length); }
-	inline yVector<T> right(int length) const { return mid(_size - 1 - length, length); }
 
 private:
-	int _size;
-	int _capacity;
+	size_type _size;
+	size_type _capacity;
 	T * _data;
 };

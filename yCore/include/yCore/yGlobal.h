@@ -3,10 +3,6 @@
 #include <yCore/yConfig.h>
 #include <cstdlib>
 #include <cstdio>
-#include <cstddef>
-#include <cassert>
-#include <algorithm>
-#include <string>
 
 // Version macro
 #define yVERSION(Major, Minor, Patch) ((Major << 16) + (Minor << 8) + (Patch))
