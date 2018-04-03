@@ -166,6 +166,9 @@ typedef size_t yuintptr;
 // Nothing function
 inline void yon_noop() { }
 
+// Avoid warnings for unused variables
+#define yUNUSED(X) (void)X
+
 // Some maths functions
 template<typename T>
 inline T yAbs(const T & v) { return v >= 0 ? v : -v; }
