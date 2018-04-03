@@ -239,6 +239,7 @@ public:
 	inline yException() : std::exception(), _msg("unknown exception") { }
 	inline yException(const char * message) : std::exception(), _msg(message) { }
 	inline yException(const std::string & message) : std::exception(), _msg(message) { }
+	inline virtual ~yException() { }
 
 	virtual inline const char * what() const noexcept { return _msg.c_str(); }
 
