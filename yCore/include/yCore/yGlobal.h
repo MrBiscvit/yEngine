@@ -35,7 +35,7 @@
 #include <climits>
 
 // Avoids useless warnings from certain compilers
-#if defined(_MSC_VER)
+#if defined(yCC_MVSC)
 #  pragma warning(disable: 4251) // class 'type' needs to have dll-interface to be used by clients of class 'type2'
 #  pragma warning(disable: 4244) // conversion from 'type1' to 'type2', possible loss of data
 #  pragma warning(disable: 4275) // non - DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
@@ -75,7 +75,7 @@ typedef signed   int       yint32;	// Signed 32-bit integer
 typedef unsigned char      yuint8;	// Unsigned 8-bit integer
 typedef unsigned short     yuint16;	// Unsigned 16-bit integer
 typedef unsigned int       yuint32;	// Unsigned 32-bit integer
-#if defined(_MSC_VER)
+#if defined(yCC_MVSC)
 typedef signed   __int64   yint64;  // Signed 64-bit integer
 typedef unsigned __int64   yuint64; // Unsigned 64-bit integer
 #else
@@ -247,7 +247,7 @@ inline void yExit(int exitCode = 0) { std::exit(exitCode); }
 inline void yAbort() { std::abort(); }
 
 // Assertions 
-#if defined(_MSC_VER)
+#if defined(yCC_MVSC)
 _declspec(noreturn)
 #endif
 void yon_assert(const char * assertion, const char * file, int line) noexcept
@@ -256,7 +256,7 @@ void yon_assert(const char * assertion, const char * file, int line) noexcept
 	yAbort();
 }
 
-#if defined(_MSC_VER)
+#if defined(yCC_MVSC)
 _declspec(noreturn)
 #endif
 void yon_assert_x(const char * where, const char * what, const char * file, int line) noexcept
