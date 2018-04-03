@@ -27,6 +27,7 @@
 #pragma once
 
 #if defined(_MSC_VER)
+// Microsoft Visual Studio Compiler
 #  define yCC_MVSC _MSC_VER
 #  define yDECL_EXPORT __declspec(dllexport)
 #  define yDECL_IMPORT __declspec(dllimport)
