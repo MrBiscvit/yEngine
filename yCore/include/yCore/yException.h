@@ -27,7 +27,7 @@
 #pragma once
 
 #include <yCore/yCore.h>
-#if !defined(yNO_EXCEPTIONS)
+#if !defined(yNO_EXCEPTIONS) && defined(__cplusplus)
 
 yNAMESPACE_BEGIN
 

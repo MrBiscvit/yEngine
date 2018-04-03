@@ -220,7 +220,7 @@ template<typename T, typename U> struct yConditional<false, T, U> { typedef U ty
 #if !defined(__cplusplus) && !defined(yNO_EXCEPTIONS)
 #  define yNO_EXCEPTIONS
 #endif
-#if defined(yNO_EXCEPTIONS)
+#if defined(yNO_EXCEPTIONS) || !defined(__cplusplus)
 #  define yTry if (true)
 #  define yCatch(A) else
 #  define yThrow(A) yon_noop()
