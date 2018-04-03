@@ -26,6 +26,16 @@
 #define _YON_CONFIG_HEADER_
 #pragma once
 
+#if defined(_MSC_VER)
+#  define yCC_MVSC _MSC_VER
+#  define yDECL_EXPORT __declspec(dllexport)
+#  define yDECL_IMPORT __declspec(dllimport)
+#endif
 
+#if defined(__cplusplus)
+#  define yNULLPTR nullptr
+#else
+#  define yNULLPTR NULL
+#endif
 
 #endif // !_YON_CONFIG_HEADER_
