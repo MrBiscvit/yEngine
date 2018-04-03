@@ -26,7 +26,7 @@
 #define _YON_MATH_HEADER_
 #pragma once
 
-#include <yCore/yGlobal.h>
+#include <yCore/yCore.h>
 #include <cmath>
 
 yNAMESPACE_BEGIN
