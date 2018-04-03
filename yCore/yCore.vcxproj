@@ -157,6 +157,7 @@
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yCore.h" />
     <ClInclude Include="include\yCore\yGlobal.h" />
+    <ClInclude Include="include\yCore\yMath.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
