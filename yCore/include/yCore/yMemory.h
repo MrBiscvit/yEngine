@@ -62,6 +62,8 @@ inline void * yRealloc(void * ptr, ysizetype size)
 template<typename T, class Deleter>
 class yScopedPointer
 {
+	yDISABLE_COPY(yScopedPointer)
+
 public:
 	inline yScopedPointer(T * ptr = yNULLPTR) : _ptr(ptr) { }
 	inline ~yScopedPointer() { reset(); }
