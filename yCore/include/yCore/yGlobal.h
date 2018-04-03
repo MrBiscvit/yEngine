@@ -278,6 +278,13 @@ void yon_assert_x(const char * where, const char * what, const char * file, int 
 #  define yASSERT_X(Cond, Where, What) static_cast<void>(false && (Cond))
 #endif
 
+// Check pointer macro
+#define yCHECK_PTR(Ptr) (Ptr != nullptr)
+
+// Stringify macro
+#define _ySTRINGIFY_(X) #X
+#define ySTRINGIFY(X) _ySTRINGIFY_(X)
+
 yNAMESPACE_END
 
 #endif // !_YON_GLOBAL_HEADER_
