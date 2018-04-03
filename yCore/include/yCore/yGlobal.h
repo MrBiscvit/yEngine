@@ -286,6 +286,11 @@ void yon_assert_x(const char * where, const char * what, const char * file, int 
 #define _ySTRINGIFY_(X) #X
 #define ySTRINGIFY(X) _ySTRINGIFY_(X)
 
+// Disable copy of class or struct macro
+#define yDISABLE_COPY(Class) \
+Class(const Class &) = delete; \
+Class & operator=(const Class &) = delete;
+
 yNAMESPACE_END
 
 #endif // !_YON_GLOBAL_HEADER_
