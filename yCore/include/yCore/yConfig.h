@@ -31,6 +31,10 @@
 #  define yCC_MVSC _MSC_VER
 #  define yDECL_EXPORT __declspec(dllexport)
 #  define yDECL_IMPORT __declspec(dllimport)
+#else
+#  define yDECL_EXPORT
+#  define yDECL_IMPORT
+#  pragma warning("Unknown compiler, please contact support!")
 #endif
 
 #if defined(__cplusplus)
