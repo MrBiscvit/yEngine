@@ -28,4 +28,14 @@
 
 #include <yCore/yGlobal.h>
 
+#if defined(yCORE_STATIC)
+#  define yCORE_API
+#else
+#  if defined(yCORE_BUILD)
+#    define yCORE_API yDECL_EXPORT
+#  else
+#    define yCORE_API yDECL_IMPORT
+#  endif
+#endif
+
 #endif // !_YON_CORE_HEADER_
