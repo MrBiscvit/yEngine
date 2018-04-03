@@ -193,6 +193,8 @@ template<typename T>
 struct yAddConst { typedef const T type; };
 template<typename T>
 yAddConst<T>::type & yAsConst(T & v) { return v; }
+template<typename T>
+yAddConst<T>::type & yAsConst(T && v) = delete;
 #endif
 
 // Conditional type
