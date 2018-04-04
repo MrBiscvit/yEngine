@@ -24,8 +24,16 @@
 
 #include <yCore/yTime.h>
 #include <yCore/yMemory.h>
+#if defined(_WIN32)
+#include <Windows.h>
+#endif
 
 yNAMESPACE_BEGIN
+
+typedef struct yon_time
+{
+	yuint64 milliseconds;
+} yon_time;
 
 yon_time * yon_create_time()
 {
@@ -38,6 +46,60 @@ void yon_destroy_time(yon_time * time)
 {
 	if (yCHECK_PTR(time))
 		yon_free(time);
+}
+
+yon_time * yon_get_current_time(yon_time * time)
+{
+#if defined(_WIN32)
+	SYSTEMTIME systemTime;
+	if (yCHECK_PTR(time)) {
+		GetSystemTime(&systemTime);
+
+		time->milliseconds = 
+			systemTime.wHour * 1200000 + 
+			systemTime.wMinute * 60000 + 
+			systemTime.wSecond * 1000 + 
+			systemTime.wMilliseconds;
+	}
+#endif
+
+	return time;
+}
+
+yuint64 yon_get_hours(yon_time * time)
+{
+	if (yCHECK_PTR(time))
+		return time->milliseconds / 120000;
+	else
+		return 0;
+}
+yuint64 yon_get_minutes(yon_time * time)
+{
+	if (yCHECK_PTR(time))
+		return time->milliseconds / 60000;
+	else
+		return 0;
+}
+yuint64 yon_get_seconds(yon_time * time)
+{
+	if (yCHECK_PTR(time))
+		return time->milliseconds / 1000;
+	else
+		return 0;
+}
+yuint64 yon_get_milliseconds(yon_time * time)
+{
+	if (yCHECK_PTR(time))
+		return time->milliseconds;
+	else
+		return 0;
+}
+yuint64 yon_get_microseconds(yon_time * time)
+{
+	if (yCHECK_PTR(time))
+		return time->milliseconds * 1000;
+	else
+		return 0;
 }
 
 yon_time * yon_set_hours(yon_time * time, yuint64 hours)

@@ -32,13 +32,18 @@ yNAMESPACE_BEGIN
 
 // C API
 
-typedef struct yCORE_API yon_time
-{
-	yuint64 milliseconds;
-} yon_time;
+typedef struct yCORE_API yon_time yon_time;
 
 yCORE_API yon_time * yon_create_time();
 yCORE_API void yon_destroy_time(yon_time * time);
+
+yCORE_API yon_time * yon_get_current_time(yon_time * time);
+
+yCORE_API yuint64 yon_get_hours(yon_time * time);
+yCORE_API yuint64 yon_get_minutes(yon_time * time);
+yCORE_API yuint64 yon_get_seconds(yon_time * time);
+yCORE_API yuint64 yon_get_milliseconds(yon_time * time);
+yCORE_API yuint64 yon_get_microseconds(yon_time * time);
 
 yCORE_API yon_time * yon_set_hours(yon_time * time, yuint64 hours);
 yCORE_API yon_time * yon_set_minutes(yon_time * time, yuint64 minutes);
@@ -65,7 +70,10 @@ class yCORE_API yTime
 {
 public:
 
+
+
 private:
+	yuint64 _ms;
 };
 #endif
 
