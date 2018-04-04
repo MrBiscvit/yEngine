@@ -27,36 +27,35 @@
 #pragma once
 
 #include <yCore/yCore.h>
-#include <map>
 
 yNAMESPACE_BEGIN
 
 #if defined(__cplusplus)
 template<typename T>
 inline T * yMalloc(ysizetype size)
-{ return reinterpret_cast<T*>(::malloc(std::size_t(size))); }
+{ return reinterpret_cast<T*>(malloc(size)); }
 #endif
 inline void * yMalloc(ysizetype size)
-{ return ::malloc(std::size_t(size)); }
+{ return malloc(size); }
 
 #if defined(__cplusplus)
 template<typename T>
 inline T * yCalloc(ysizetype count, ysizetype size)
-{ return reinterpret_cast<T*>(::calloc(std::size_t(count), std::size_t(size))); }
+{ return reinterpret_cast<T*>(calloc(count, size)); }
 #endif
 inline void * yMalloc(ysizetype count, ysizetype size)
-{ return ::calloc(std::size_t(count), std::size_t(size)); }
+{ return calloc(count, size); }
 
 inline void yFree(void * ptr)
-{ return ::free(ptr); }
+{ return free(ptr); }
 
 #if defined(__cplusplus)
 template<typename T>
 inline T * yRealloc(T * ptr, ysizetype size)
-{ return reinterpret_cast<T*>(::realloc(ptr, std::size_t(size))); }
+{ return reinterpret_cast<T*>(realloc(ptr, size)); }
 #endif
 inline void * yRealloc(void * ptr, ysizetype size)
-{ return ::realloc(ptr, size); }
+{ return realloc(ptr, size); }
 
 #if defined(__cplusplus)
 template<typename T, class Deleter>

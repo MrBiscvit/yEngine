@@ -27,9 +27,10 @@
 #pragma once
 
 #include <yCore/yCore.h>
-#include <cmath>
 
 yNAMESPACE_BEGIN
+
+#if defined(__cplusplus)
 
 template<typename T>
 inline T ySin(T value) { return std::sin(value); }
@@ -72,6 +73,8 @@ template<typename T>
 inline T yCbrt(T value) { return std::cbrt(value); }
 template<typename T>
 inline T yHypot(T value1, T value2) { return std::hypot(value1, value2); }
+
+#endif
 
 yNAMESPACE_END
 

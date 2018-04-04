@@ -27,12 +27,19 @@
 #pragma once
 
 #include <yCore/yConfig.h>
+#if defined(_cplusplus)
 #include <cstdlib>
 #include <cstdio>
 #include <cstddef>
-#include <cstdalign>
 #include <cmath>
 #include <climits>
+#else
+#include <stdlib.h>
+#include <stdio.h>
+#include <stddef.h>
+#include <math.h>
+#include <limits.h>
+#endif
 
 // Avoids useless warnings from certain compilers
 #if defined(yCC_MVSC)
@@ -40,7 +47,9 @@
 #  pragma warning(disable: 4244) // conversion from 'type1' to 'type2', possible loss of data
 #  pragma warning(disable: 4275) // non - DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
 #  pragma warning(disable: 4514) // unreferenced inline function has been removed
-#  pragma warning(disable: 4800) // 'type' : forcing value to bool 'true' or 'false' (performance warning)
+#  if defined(__cplusplus)
+#    pragma warning(disable: 4800) // 'type' : forcing value to bool 'true' or 'false' (performance warning)
+#  endif
 #  pragma warning(disable: 4097) // typedef-name 'identifier1' used as synonym for class-name 'identifier2'
 #  pragma warning(disable: 4706) // assignment within conditional expression
 #  pragma warning(disable: 4355) // 'this' : used in base member initializer list
@@ -158,18 +167,19 @@ typedef yintptr yptrdiff;
 typedef std::size_t ysizetype;
 #else
 typedef ptrdiff_t yptrdiff;
-typedef ptrdiff_t ysizetype;
+typedef unsigned int ysizetype;
 typedef ptrdiff_t yintptr;
-typedef size_t yuintptr;
+typedef unsigned int yuintptr;
 #endif
 
 // Nothing function
-inline void yon_noop() { }
+inline void yon_noop(void) { }
 
 // Avoid warnings for unused variables
 #define yUNUSED(X) (void)X
 
 // Some maths functions
+#if defined(__cplusplus)
 template<typename T>
 inline T yAbs(const T & v) { return v >= 0 ? v : -v; }
 template<typename T, typename U>
@@ -180,12 +190,23 @@ template<typename T>
 inline T yMin(const T & x, const T & y) { return (x < y) ? y : x; }
 template<typename T>
 inline T yBound(const T & min, const T & max, const T & v) { return yMax(min, yMin(max, v)); }
+#else
+inline double yAbs(double v) { return v >= 0 ? v : -v; }
+inline int yRound(double v) { return v >= 0. ? (int)(v + 0.5) : (int)(v - (double)((int)(v - 1)) + 0.5) + (int)(v - 1); }
+inline double yMax(double x, double y) { return (x < y) ? x : y; }
+inline double yMin(double x, double y) { return (x < y) ? y : x; }
+inline double yBound(double min, double max, double v) { return yMax(min, yMin(max, v)); }
+#endif
 
 // Fuzzy operations functions
-inline bool yFuzzyCompare(double v1, double v2) { return (yAbs(v1 - v2) * 1000000000000. <= yMin(yAbs(v1), yAbs(v2))); }
-inline bool yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f <= yMin(yAbs(v1), yAbs(v2))); }
-inline bool yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
-inline bool yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
+inline yboolean yFuzzyCompare(double v1, double v2) { return (yAbs(v1 - v2) * 1000000000000. <= yMin(yAbs(v1), yAbs(v2))); }
+#if defined(__cplusplus)
+inline yboolean yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f <= yMin(yAbs(v1), yAbs(v2))); }
+#endif
+inline yboolean yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
+#if defined(__cplusplus)
+inline yboolean yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
+#endif
 
 // Conditional type
 #if defined(__cplusplus)
@@ -215,8 +236,6 @@ template<typename T, typename U> struct yConditional<false, T, U> { typedef U ty
 #  define yCatch(A) else
 #  define yThrow(A) yon_noop()
 #  define yRethrow yon_noop()
-
-typedef struct yException_ { } yException;
 #else
 #  define yTry try
 #  define yCatch(A) catch (A)
@@ -240,14 +259,21 @@ private:
 #endif
 
 // Exit and Abort functions
-inline void yExit(int exitCode = 0) { std::exit(exitCode); }
-inline void yAbort() { std::abort(); }
+inline void yExit(int exitCode 
+#if defined(__cplusplus)
+				  = 0
+#endif
+) { exit(exitCode); }
+inline void yAbort(void) { abort(); }
 
 // Assertions 
 #if defined(yCC_MVSC)
 _declspec(noreturn)
 #endif
-void yon_assert(const char * assertion, const char * file, int line) noexcept
+void yon_assert(const char * assertion, const char * file, int line) 
+#if defined(__cplusplus)
+noexcept
+#endif
 {
 	fprintf(stderr, "ASSERT: \"%s\" in file %s, line %i", assertion, file, line);
 	yAbort();
@@ -256,7 +282,10 @@ void yon_assert(const char * assertion, const char * file, int line) noexcept
 #if defined(yCC_MVSC)
 _declspec(noreturn)
 #endif
-void yon_assert_x(const char * where, const char * what, const char * file, int line) noexcept
+void yon_assert_x(const char * where, const char * what, const char * file, int line)
+#if defined(__cplusplus)
+noexcept
+#endif
 {
 	fprintf(stderr, "ASSERT at \"%s\": \"%s\" in file %s, line %i", where, what, file, line);
 	yAbort();
@@ -271,16 +300,18 @@ void yon_assert_x(const char * where, const char * what, const char * file, int 
 #endif
 
 // Check pointer macro
-#define yCHECK_PTR(Ptr) (Ptr != nullptr)
+#define yCHECK_PTR(Ptr) (Ptr != yNULLPTR)
 
 // Stringify macro
 #define _ySTRINGIFY_(X) #X
 #define ySTRINGIFY(X) _ySTRINGIFY_(X)
 
 // Disable copy of class or struct macro
+#if defined(__cplusplus)
 #define yDISABLE_COPY(Class) \
 Class(const Class &) = delete; \
 Class & operator=(const Class &) = delete;
+#endif
 
 yNAMESPACE_END
 
