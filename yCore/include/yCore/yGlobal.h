@@ -187,16 +187,6 @@ inline bool yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f
 inline bool yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
 inline bool yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
 
-// Adds const to non-const objects
-#if defined(__cplusplus)
-template<typename T>
-struct yAddConst { typedef const T type; };
-template<typename T>
-yAddConst<T>::type & yAsConst(T & v) { return v; }
-template<typename T>
-yAddConst<T>::type & yAsConst(T && v) = delete;
-#endif
-
 // Conditional type
 #if defined(__cplusplus)
 template<bool B, typename T, typename U> struct yConditional { typedef T type; };
@@ -233,12 +223,13 @@ typedef struct yException_ { } yException;
 #  define yThrow(A) throw A
 #  define yRethrow throw
 #  include <exception>
+#  include <string>
 class yException : public std::exception
 {
 public:
-	inline yException() : std::exception(), _msg("unknown exception") { }
-	inline yException(const char * message) : std::exception(), _msg(message) { }
-	inline yException(const std::string & message) : std::exception(), _msg(message) { }
+	inline yException() : _msg("unknown exception") { }
+	inline yException(const char * message) : _msg(message) { }
+	inline yException(const std::string & message) : _msg(message) { }
 	inline virtual ~yException() { }
 
 	virtual inline const char * what() const noexcept { return _msg.c_str(); }
