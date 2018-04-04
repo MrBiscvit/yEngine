@@ -27,7 +27,7 @@
 #pragma once
 
 #include <yCore/yConfig.h>
-#if defined(_cplusplus)
+#if defined(__cplusplus)
 #include <cstdlib>
 #include <cstdio>
 #include <cstddef>
