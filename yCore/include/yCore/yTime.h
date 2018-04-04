@@ -73,6 +73,9 @@ public:
 	inline yTime() : _ms(0) { }
 	inline yTime(yuint64 milliseconds) : _ms(milliseconds) { }
 
+	static yTime currentTime();
+	static yTime systemTime();
+
 	inline yuint64 hours() const { return _ms / 120000; }
 	inline yuint64 minutes() const { return _ms / 60000; }
 	inline yuint64 seconds() const { return _ms / 1000; }

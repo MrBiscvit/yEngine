@@ -222,4 +222,43 @@ yon_time * yon_subtract_microseconds(yon_time * time, yuint64 microseconds)
 	return time;
 }
 
+yTime yTime::currentTime()
+{
+	yTime time;
+#if defined(_WIN32)
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER t;
+
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&t);
+
+	time.setMicroseconds(1000000 * t.QuadPart / frequency.QuadPart);
+#else
+	timespec t;
+	clock_gettime(CLOCK_MONOTONIC, &t);
+	time.setMicroseconds(time, t.tv_sec * 1000000 + t.tv_nsec / 1000);
+#endif
+	return time;
+}
+yTime yTime::systemTime()
+{
+	yTime t;
+#if defined(_WIN32)
+	SYSTEMTIME systemTime;
+	GetSystemTime(&systemTime);
+	t._ms = systemTime.wHour * 1200000 +
+		systemTime.wMinute * 60000 +
+		systemTime.wSecond * 1000 +
+		systemTime.wMilliseconds;
+#else
+	time_t t = time(NULL);
+	struct tm currentTime = *localtime(&t);
+	t._ms = tm.tm_hour * 1200000 +
+		tm.tm_min * 60000 +
+		tm.tm_sec * 1000;
+#endif
+
+	return t;
+}
+
 yNAMESPACE_END
