@@ -28,4 +28,47 @@
 
 #include <yCore/yCore.h>
 
+yNAMESPACE_BEGIN
+
+// C API
+
+typedef struct yCORE_API yon_time
+{
+	yuint64 milliseconds;
+} yon_time;
+
+yCORE_API yon_time * yon_create_time();
+yCORE_API void yon_destroy_time(yon_time * time);
+
+yCORE_API yon_time * yon_set_hours(yon_time * time, yuint64 hours);
+yCORE_API yon_time * yon_set_minutes(yon_time * time, yuint64 minutes);
+yCORE_API yon_time * yon_set_seconds(yon_time * time, yuint64 seconds);
+yCORE_API yon_time * yon_set_milliseconds(yon_time * time, yuint64 milliseconds);
+yCORE_API yon_time * yon_set_microseconds(yon_time * time, yuint64 microseconds);
+
+yCORE_API yon_time * yon_add_hours(yon_time * time, yuint64 hours);
+yCORE_API yon_time * yon_add_minutes(yon_time * time, yuint64 minutes);
+yCORE_API yon_time * yon_add_seconds(yon_time * time, yuint64 seconds);
+yCORE_API yon_time * yon_add_milliseconds(yon_time * time, yuint64 milliseconds);
+yCORE_API yon_time * yon_add_microseconds(yon_time * time, yuint64 microseconds);
+
+yCORE_API yon_time * yon_subtract_hours(yon_time * time, yuint64 hours);
+yCORE_API yon_time * yon_subtract_minutes(yon_time * time, yuint64 minutes);
+yCORE_API yon_time * yon_subtract_seconds(yon_time * time, yuint64 seconds);
+yCORE_API yon_time * yon_subtract_milliseconds(yon_time * time, yuint64 milliseconds);
+yCORE_API yon_time * yon_subtract_microseconds(yon_time * time, yuint64 microseconds);
+
+// C++ API
+
+#if defined(__cplusplus)
+class yCORE_API yTime
+{
+public:
+
+private:
+};
+#endif
+
+yNAMESPACE_END
+
 #endif // !_YON_TIME_HEADER_
