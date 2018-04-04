@@ -32,10 +32,10 @@ yNAMESPACE_BEGIN
 
 // C API
 
-yCORE_API void * yon_malloc(ysizetype size) { return malloc(size); }
-yCORE_API void * yon_calloc(ysizetype count, ysizetype size) { return calloc(count, size); }
-yCORE_API void * yon_realloc(void * ptr, ysizetype size) { return realloc(ptr, size); }
-yCORE_API void yon_free(void * ptr) { free(ptr); }
+yCORE_API void * yon_malloc(ysizetype size);
+yCORE_API void * yon_calloc(ysizetype count, ysizetype size);
+yCORE_API void * yon_realloc(void * ptr, ysizetype size);
+yCORE_API void yon_free(void * ptr);
 
 // C++ API
 

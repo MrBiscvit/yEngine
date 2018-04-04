@@ -278,14 +278,11 @@ inline void yAbort() { std::abort(); }
 #if defined(yCC_MVSC)
 _declspec(noreturn)
 #endif
-void yon_assert(const char * assertion, const char * file, int line) 
+void yon_assert(const char * assertion, const char * file, int line)
 #if defined(__cplusplus)
 noexcept
 #endif
-{
-	fprintf(stderr, "ASSERT: \"%s\" in file %s, line %i", assertion, file, line);
-	yon_abort();
-}
+;
 
 #if defined(yCC_MVSC)
 _declspec(noreturn)
@@ -294,10 +291,7 @@ void yon_assert_x(const char * where, const char * what, const char * file, int 
 #if defined(__cplusplus)
 noexcept
 #endif
-{
-	fprintf(stderr, "ASSERT at \"%s\": \"%s\" in file %s, line %i", where, what, file, line);
-	yon_abort();
-}
+;
 
 #if defined(yDEBUG) || defined(yFORCE_ASSERTS)
 #  define yASSERT(Cond) ((Cond) ? static_cast<void>(0) : yon_assert(#Cond, __FILE__, __LINE__))
