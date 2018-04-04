@@ -69,13 +69,12 @@ yon_time * yon_restart_chrono(yon_chrono * chrono, yon_time * elapsed)
 }
 yon_time * yon_elapsed_chrono(yon_chrono * chrono, yon_time * elapsed)
 {
-	yuint64 elapsedMilliseconds;
 	yon_time * currentTime = yon_create_time();
 	if (yCHECK_PTR(chrono)) {
 		yon_get_current_time(currentTime);
-		elapsedMilliseconds = yon_get_milliseconds(currentTime) - yon_get_milliseconds(chrono->last_time);
-		yon_set_milliseconds(elapsed, elapsedMilliseconds);
-		yon_destroy_time(currentTime);
+		yon_set_milliseconds(elapsed, yon_get_milliseconds(currentTime) - yon_get_milliseconds(chrono->last_time));
+		yon_destroy_time(chrono->last_time);
+		chrono->last_time = currentTime;
 		return elapsed;
 	} else {
 		return yNULLPTR;
