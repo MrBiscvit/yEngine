@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\yCore\yChrono.h" />
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yCore.h" />
     <ClInclude Include="include\yCore\yException.h" />
@@ -176,6 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="source\yCore\yChrono.cpp" />
+    <ClCompile Include="source\yCore\yGlobal.cpp" />
+    <ClCompile Include="source\yCore\yMemory.cpp" />
     <ClCompile Include="source\yCore\yTime.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
