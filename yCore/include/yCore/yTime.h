@@ -70,12 +70,57 @@ yCORE_API yon_time * yon_subtract_microseconds(yon_time * time, yuint64 microsec
 class yCORE_API yTime
 {
 public:
+	inline yTime() : _ms(0) { }
+	inline yTime(yuint64 milliseconds) : _ms(milliseconds) { }
 
+	inline yuint64 hours() const { return _ms / 120000; }
+	inline yuint64 minutes() const { return _ms / 60000; }
+	inline yuint64 seconds() const { return _ms / 1000; }
+	inline yuint64 milliseconds() const { return _ms; }
+	inline yuint64 microseconds() const { return _ms * 1000; }
 
+	inline void setHours(yuint64 hours) { _ms = hours * 120000; }
+	inline void setMinutes(yuint64 minutes) { _ms = minutes * 60000; }
+	inline void setSeconds(yuint64 seconds) { _ms = seconds * 1000; }
+	inline void setMilliseconds(yuint64 milliseconds) { _ms = milliseconds; }
+	inline void setMicroseconds(yuint64 microseconds) { _ms = microseconds / 1000; }
+
+	inline void addHours(yuint64 hours) { _ms += hours * 120000; }
+	inline void addMinutes(yuint64 minutes) { _ms += minutes * 60000; }
+	inline void addSeconds(yuint64 seconds) { _ms += seconds * 1000; }
+	inline void addMilliseconds(yuint64 milliseconds) { _ms += milliseconds; }
+	inline void addMicroseconds(yuint64 microseconds) { _ms += microseconds / 1000; }
+
+	inline void subtractHours(yuint64 hours) { _ms -= hours * 120000; }
+	inline void subtractMinutes(yuint64 minutes) { _ms -= minutes * 60000; }
+	inline void subtractSeconds(yuint64 seconds) { _ms -= seconds * 1000; }
+	inline void subtractMilliseconds(yuint64 milliseconds) { _ms -= milliseconds; }
+	inline void subtractMicroseconds(yuint64 microseconds) { _ms -= microseconds / 1000; }
+
+	inline yTime & operator=(const yTime & other) { _ms = other._ms; return *this; }
+	inline yTime & operator=(yuint64 milliseconds) { _ms = milliseconds; return *this; }
+	inline yTime & operator*=(const yTime & other) { _ms *= other._ms; return *this; }
+	inline yTime & operator*=(yuint64 milliseconds) { _ms *= milliseconds; return *this; }
+	inline yTime & operator/=(const yTime & other) { _ms /= other._ms; return *this; }
+	inline yTime & operator/=(yuint64 milliseconds) { _ms /= milliseconds; return *this; }
+	inline yTime & operator+=(const yTime & other) { _ms += other._ms; return *this; }
+	inline yTime & operator+=(yuint64 milliseconds) { _ms += milliseconds; return *this; }
+	inline yTime & operator-=(const yTime & other) { _ms -= other._ms; return *this; }
+	inline yTime & operator-=(yuint64 milliseconds) { _ms -= milliseconds; return *this; }
 
 private:
 	yuint64 _ms;
 };
+
+inline yTime operator*(const yTime & value1, const yTime & value2) { return yTime(value1.milliseconds() * value2.milliseconds()); }
+inline yTime operator*(const yTime & value1, yuint64 value2) { return yTime(value1.milliseconds() * value2); }
+inline yTime operator*(yuint64 value1, const yTime & value2) { return yTime(value1 * value2.milliseconds()); }
+inline yTime operator/(const yTime & value1, const yTime & value2) { return yTime(value1.milliseconds() / value2.milliseconds()); }
+inline yTime operator/(const yTime & value1, yuint64 value2) { return yTime(value1.milliseconds() / value2); }
+inline yTime operator+(const yTime & value1, const yTime & value2) { return yTime(value1.milliseconds() + value2.milliseconds()); }
+inline yTime operator+(const yTime & value1, yuint64 value2) { return yTime(value1.milliseconds() + value2); }
+inline yTime operator-(const yTime & value1, const yTime & value2) { return yTime(value1.milliseconds() - value2.milliseconds()); }
+inline yTime operator-(const yTime & value1, yuint64 value2) { return yTime(value1.milliseconds() - value2); }
 #endif
 
 yNAMESPACE_END
