@@ -27,10 +27,10 @@
 
 yNAMESPACE_BEGIN
 
-struct yon_chrono
+typedef struct yon_chrono
 {
 	yon_time * last_time;
-};
+} yon_chrono;
 
 yon_chrono * yon_create_chrono()
 {
