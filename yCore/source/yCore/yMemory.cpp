@@ -40,7 +40,7 @@ void * yon_realloc(void * ptr, ysizetype size)
 }
 void yon_free(void * ptr)
 {
-	return free(ptr);
+	free(ptr);
 }
 
 yNAMESPACE_END
