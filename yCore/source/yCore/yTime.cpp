@@ -44,78 +44,93 @@ yon_time * yon_set_hours(yon_time * time, yuint64 hours)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds = hours * 120000;
+	return time;
 }
 yon_time * yon_set_minutes(yon_time * time, yuint64 minutes)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds = minutes * 60000;
+	return time;
 }
 yon_time * yon_set_seconds(yon_time * time, yuint64 seconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds = seconds * 1000;
+	return time;
 }
 yon_time * yon_set_milliseconds(yon_time * time, yuint64 milliseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds = milliseconds;
+	return time;
 }
 yon_time * yon_set_microseconds(yon_time * time, yuint64 microseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds = microseconds / 1000;
+	return time;
 }
 
 yon_time * yon_add_hours(yon_time * time, yuint64 hours)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds += hours * 120000;
+	return time;
 }
 yon_time * yon_add_minutes(yon_time * time, yuint64 minutes)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds += minutes * 60000;
+	return time;
 }
 yon_time * yon_add_seconds(yon_time * time, yuint64 seconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds += seconds * 1000;
+	return time;
 }
 yon_time * yon_add_milliseconds(yon_time * time, yuint64 milliseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds += milliseconds;
+	return time;
 }
 yon_time * yon_add_microseconds(yon_time * time, yuint64 microseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= microseconds / 1000;
+	return time;
 }
 
 yon_time * yon_subtract_hours(yon_time * time, yuint64 hours)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= hours * 120000;
+	return time;
 }
 yon_time * yon_subtract_minutes(yon_time * time, yuint64 minutes)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= minutes * 60000;
+	return time;
 }
 yon_time * yon_subtract_seconds(yon_time * time, yuint64 seconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= seconds * 1000;
+	return time;
 }
 yon_time * yon_subtract_milliseconds(yon_time * time, yuint64 milliseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= milliseconds;
+	return time;
 }
 yon_time * yon_subtract_microseconds(yon_time * time, yuint64 microseconds)
 {
 	if (yCHECK_PTR(time))
 		time->milliseconds -= microseconds / 1000;
+	return time;
 }
 
 yNAMESPACE_END
