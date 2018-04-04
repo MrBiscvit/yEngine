@@ -30,6 +30,8 @@
 
 yNAMESPACE_BEGIN
 
+// C++ API
+
 #if defined(__cplusplus)
 
 template<typename T>
