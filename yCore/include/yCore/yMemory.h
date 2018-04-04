@@ -30,36 +30,39 @@
 
 yNAMESPACE_BEGIN
 
+// C API
+
+yCORE_API void * yon_malloc(ysizetype size) { return malloc(size); }
+yCORE_API void * yon_calloc(ysizetype count, ysizetype size) { return calloc(count, size); }
+yCORE_API void * yon_realloc(void * ptr, ysizetype size) { return realloc(ptr, size); }
+yCORE_API void yon_free(void * ptr) { free(ptr); }
+
+// C++ API
+
 #if defined(__cplusplus)
 template<typename T>
-inline T * yMalloc(ysizetype size)
+yCORE_API inline T * yMalloc(ysizetype size = sizeof(T))
 { return reinterpret_cast<T*>(malloc(size)); }
-#endif
-inline void * yMalloc(ysizetype size)
+yCORE_API inline void * yMalloc(ysizetype size)
 { return malloc(size); }
 
-#if defined(__cplusplus)
 template<typename T>
-inline T * yCalloc(ysizetype count, ysizetype size)
+yCORE_API inline T * yCalloc(ysizetype count, ysizetype size = sizeof(T))
 { return reinterpret_cast<T*>(calloc(count, size)); }
-#endif
-inline void * yMalloc(ysizetype count, ysizetype size)
+yCORE_API inline void * yMalloc(ysizetype count, ysizetype size)
 { return calloc(count, size); }
 
-inline void yFree(void * ptr)
+yCORE_API inline void yFree(void * ptr)
 { return free(ptr); }
 
-#if defined(__cplusplus)
 template<typename T>
-inline T * yRealloc(T * ptr, ysizetype size)
+yCORE_API inline T * yRealloc(T * ptr, ysizetype size = sizeof(T))
 { return reinterpret_cast<T*>(realloc(ptr, size)); }
-#endif
-inline void * yRealloc(void * ptr, ysizetype size)
+yCORE_API inline void * yRealloc(void * ptr, ysizetype size)
 { return realloc(ptr, size); }
 
-#if defined(__cplusplus)
 template<typename T, class Deleter>
-class yScopedPointer
+class yCORE_API yScopedPointer
 {
 	yDISABLE_COPY(yScopedPointer)
 
