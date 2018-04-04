@@ -26,6 +26,8 @@
 #include <yCore/yMemory.h>
 #if defined(_WIN32)
 #include <Windows.h>
+#else
+#include <time.h>
 #endif
 
 yNAMESPACE_BEGIN
@@ -51,19 +53,44 @@ void yon_destroy_time(yon_time * time)
 yon_time * yon_get_current_time(yon_time * time)
 {
 #if defined(_WIN32)
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER t;
+
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&t);
+
+	return yon_set_microseconds(time, 1000000 * t.QuadPart / frequency.QuadPart);
+#else
+	timespec t;
+	clock_gettime(CLOCK_MONOTONIC, &t);
+	return yon_set_microseconds(time, t.tv_sec * 1000000 + t.tv_nsec / 1000);
+#endif
+}
+yon_time * yon_get_current_system_time(yon_time * t)
+{
+#if defined(_WIN32)
 	SYSTEMTIME systemTime;
-	if (yCHECK_PTR(time)) {
+	if (yCHECK_PTR(t)) {
 		GetSystemTime(&systemTime);
 
-		time->milliseconds = 
-			systemTime.wHour * 1200000 + 
-			systemTime.wMinute * 60000 + 
-			systemTime.wSecond * 1000 + 
+		t->milliseconds =
+			systemTime.wHour * 1200000 +
+			systemTime.wMinute * 60000 +
+			systemTime.wSecond * 1000 +
 			systemTime.wMilliseconds;
+	}
+#else
+	time_t t = time(NULL);
+	struct tm currentTime = *localtime(&t);
+	if (yCHECK_PTR(t)) {
+		t->milliseconds =
+			tm.tm_hour * 1200000 +
+			tm.tm_min * 60000 +
+			tm.tm_sec * 1000;
 	}
 #endif
 
-	return time;
+	return t;
 }
 
 yuint64 yon_get_hours(yon_time * time)
