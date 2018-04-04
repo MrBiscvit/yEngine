@@ -179,9 +179,21 @@ inline void yon_noop(void) { }
 #define yUNUSED(X) (void)X
 
 // Some maths functions
+inline int yon_abs_i(int v) { return v >= 0 ? v : -v; }
+inline double yon_abs_d(double v) { return v >= 0. ? v : -v; }
+inline float yon_abs_f(float v) { return v >= 0.f ? v : -v; }
+inline int yon_max_i(int x, int y) { return (x < y) ? x : y; }
+inline double yon_max_d(double x, double y) { return (x < y) ? x : y; }
+inline float yon_max_f(float x, float y) { return (x < y) ? x : y; }
+inline int yon_min_i(int x, int y) { return (x < y) ? y : x; }
+inline double yon_min_d(double x, double y) { return (x < y) ? y : x; }
+inline float yon_min_f(float x, float y) { return (x < y) ? y : x; }
+inline int yon_bound_i(int min, int max, int v) { return yon_max_i(min, yon_min_i(max, v)); }
+inline double yon_bound_d(double min, double max, double v) { return yon_max_d(min, yon_min_d(max, v)); }
+inline float yon_bound_f(float min, float max, float v) { return yon_max_f(min, yon_min_f(max, v)); }
 #if defined(__cplusplus)
 template<typename T>
-inline T yAbs(const T & v) { return v >= 0 ? v : -v; }
+inline T yAbs(const T & v) { return v >= T(0) ? v : -v; }
 template<typename T, typename U>
 inline U yRound(const T & v) { return v >= T(0.f) ? U(v + T(0.5f)) : U(v - T(U(v - 1)) + T(0.5f)) + U(v - 1); }
 template<typename T>
@@ -190,21 +202,17 @@ template<typename T>
 inline T yMin(const T & x, const T & y) { return (x < y) ? y : x; }
 template<typename T>
 inline T yBound(const T & min, const T & max, const T & v) { return yMax(min, yMin(max, v)); }
-#else
-inline double yAbs(double v) { return v >= 0 ? v : -v; }
-inline int yRound(double v) { return v >= 0. ? (int)(v + 0.5) : (int)(v - (double)((int)(v - 1)) + 0.5) + (int)(v - 1); }
-inline double yMax(double x, double y) { return (x < y) ? x : y; }
-inline double yMin(double x, double y) { return (x < y) ? y : x; }
-inline double yBound(double min, double max, double v) { return yMax(min, yMin(max, v)); }
 #endif
 
 // Fuzzy operations functions
+inline yboolean yon_fuzzy_compare_d(double v1, double v2) { return (yon_abs_d(v1 - v2) * 1000000000000. <= yon_min_d(yon_abs_d(v1), yon_abs_d(v2))); }
+inline yboolean yon_fuzzy_compare_f(float v1, float v2) { return (yon_abs_f(v1 - v2) * 100000.f <= yon_min_f(yon_abs_f(v1), yon_abs_f(v2))); }
+inline yboolean yon_fuzzy_is_null_d(double v) { return yon_abs_d(v) <= 0.000000000001; }
+inline yboolean yon_fuzzy_is_null_f(float v) { return yon_abs_f(v) <= 0.00001f; }
+#if defined(__cplusplus)
 inline yboolean yFuzzyCompare(double v1, double v2) { return (yAbs(v1 - v2) * 1000000000000. <= yMin(yAbs(v1), yAbs(v2))); }
-#if defined(__cplusplus)
 inline yboolean yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f <= yMin(yAbs(v1), yAbs(v2))); }
-#endif
 inline yboolean yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
-#if defined(__cplusplus)
 inline yboolean yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
 #endif
 
@@ -259,12 +267,12 @@ private:
 #endif
 
 // Exit and Abort functions
-inline void yExit(int exitCode 
+inline void yon_exit(int exitCode) { exit(exitCode); }
+inline void yon_abort(void) { abort(); }
 #if defined(__cplusplus)
-				  = 0
+inline void yExit(int exitCode = 0) { std::exit(exitCode); }
+inline void yAbort() { std::abort(); }
 #endif
-) { exit(exitCode); }
-inline void yAbort(void) { abort(); }
 
 // Assertions 
 #if defined(yCC_MVSC)
@@ -276,7 +284,7 @@ noexcept
 #endif
 {
 	fprintf(stderr, "ASSERT: \"%s\" in file %s, line %i", assertion, file, line);
-	yAbort();
+	yon_abort();
 }
 
 #if defined(yCC_MVSC)
@@ -288,7 +296,7 @@ noexcept
 #endif
 {
 	fprintf(stderr, "ASSERT at \"%s\": \"%s\" in file %s, line %i", where, what, file, line);
-	yAbort();
+	yon_abort();
 }
 
 #if defined(yDEBUG) || defined(yFORCE_ASSERTS)
