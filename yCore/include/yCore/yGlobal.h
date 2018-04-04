@@ -182,12 +182,12 @@ inline void yon_noop(void) { }
 inline int yon_abs_i(int v) { return v >= 0 ? v : -v; }
 inline double yon_abs_d(double v) { return v >= 0. ? v : -v; }
 inline float yon_abs_f(float v) { return v >= 0.f ? v : -v; }
-inline int yon_max_i(int x, int y) { return (x < y) ? x : y; }
-inline double yon_max_d(double x, double y) { return (x < y) ? x : y; }
-inline float yon_max_f(float x, float y) { return (x < y) ? x : y; }
-inline int yon_min_i(int x, int y) { return (x < y) ? y : x; }
-inline double yon_min_d(double x, double y) { return (x < y) ? y : x; }
-inline float yon_min_f(float x, float y) { return (x < y) ? y : x; }
+inline int yon_max_i(int x, int y) { return (x > y) ? x : y; }
+inline double yon_max_d(double x, double y) { return (x > y) ? x : y; }
+inline float yon_max_f(float x, float y) { return (x > y) ? x : y; }
+inline int yon_min_i(int x, int y) { return (x < y) ? x : y; }
+inline double yon_min_d(double x, double y) { return (x < y) ? x : y; }
+inline float yon_min_f(float x, float y) { return (x < y) ? x : y; }
 inline int yon_bound_i(int min, int max, int v) { return yon_max_i(min, yon_min_i(max, v)); }
 inline double yon_bound_d(double min, double max, double v) { return yon_max_d(min, yon_min_d(max, v)); }
 inline float yon_bound_f(float min, float max, float v) { return yon_max_f(min, yon_min_f(max, v)); }
@@ -197,9 +197,13 @@ inline T yAbs(const T & v) { return v >= T(0) ? v : -v; }
 template<typename T, typename U>
 inline U yRound(const T & v) { return v >= T(0.f) ? U(v + T(0.5f)) : U(v - T(U(v - 1)) + T(0.5f)) + U(v - 1); }
 template<typename T>
-inline T yMax(const T & x, const T & y) { return (x < y) ? x : y; }
+inline T yMax(const T & x, const T & y) { return (x > y) ? x : y; }
+template<typename T, typename ... Args>
+inline T yMax(const T & x, const T & y, const Args & ... args) { return yMax(yMax(x, y), args...); }
 template<typename T>
-inline T yMin(const T & x, const T & y) { return (x < y) ? y : x; }
+inline T yMin(const T & x, const T & y) { return (x < y) ? x : y; }
+template<typename T, typename ... Args>
+inline T yMin(const T & x, const T & y, const Args & ... args) { return yMin(yMin(x, y), args...); }
 template<typename T>
 inline T yBound(const T & min, const T & max, const T & v) { return yMax(min, yMin(max, v)); }
 #endif
