@@ -38,7 +38,7 @@ yCORE_API yon_time * yon_create_time();
 yCORE_API void yon_destroy_time(yon_time * time);
 
 yCORE_API yon_time * yon_get_current_time(yon_time * time);
-yCORE_API yon_time * yon_get_current_system_time(yon_time * time);
+yCORE_API yon_time * yon_get_system_time(yon_time * time);
 
 yCORE_API yuint64 yon_get_hours(yon_time * time);
 yCORE_API yuint64 yon_get_minutes(yon_time * time);

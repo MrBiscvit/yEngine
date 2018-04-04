@@ -66,7 +66,7 @@ yon_time * yon_get_current_time(yon_time * time)
 	return yon_set_microseconds(time, t.tv_sec * 1000000 + t.tv_nsec / 1000);
 #endif
 }
-yon_time * yon_get_current_system_time(yon_time * t)
+yon_time * yon_get_system_time(yon_time * t)
 {
 #if defined(_WIN32)
 	SYSTEMTIME systemTime;
