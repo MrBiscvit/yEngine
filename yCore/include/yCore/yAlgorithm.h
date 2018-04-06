@@ -74,10 +74,10 @@ inline bool yIsSorted(Iterator first, Iterator last)
 { return std::is_sorted(first, last); }
 
 template <class Iterator>
-inline Iterator yMin(Iterator first, Iterator last)
+inline Iterator yMinElement(Iterator first, Iterator last)
 { return std::min_element(first, last); }
 template <class Iterator>
-inline Iterator yMax(Iterator first, Iterator last)
+inline Iterator yMaxElement(Iterator first, Iterator last)
 { return std::max_element(first, last); }
 
 yNAMESPACE_END
