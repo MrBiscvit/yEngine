@@ -22,62 +22,60 @@
 // SOFTWARE.
 //
 
-#ifndef _YON_SCOPED_POINTER_HEADER_
-#define _YON_SCOPED_POINTER_HEADER_
+#ifndef _YON_SHARED_POINTER_HEADER_
+#define _YON_SHARED_POINTER_HEADER_
 #pragma once
 
 #include <yCore/yCore.h>
 #include <yCore/yMemory.h>
 
-yNAMESPACE_BEGIN
-
 template<typename T>
-class yCORE_API yScopedPointerDeleter
+class yCORE_API ySharedPointerDeleter
 {
 public:
 	static void destroy(T * ptr) { delete ptr; }
 };
 
 template<typename T>
-class yCORE_API yScopedPointerArrayDeleter
+class yCORE_API ySharedPointerArrayDeleter
 {
 public:
-	static void destroy(T * ptr) { delete[] ptr; }
+	static void destroy(T * ptr) { delete[ ] ptr; }
 };
 
 template<typename T>
-class yCORE_API yScopedPointerFreeDeleter
+class yCORE_API ySharedPointerFreeDeleter
 {
 public:
 	static void destroy(T * ptr) { yFree(ptr); }
 };
 
-
-template<typename T, class Deleter = yConditional<std::is_array_v<T>, yScopedPointerArrayDeleter<T>, yScopedPointerDeleter<T>>::type>
-class yCORE_API yScopedPointer
+template<typename T, class Deleter = yConditional<std::is_array_v<T>, ySharedPointerArrayDeleter<T>, ySharedPointerDeleter<T>>::type>
+class yCORE_API ySharedPointer
 {
-	yDISABLE_COPY(yScopedPointer)
-
 public:
-	inline yScopedPointer(T * ptr = yNULLPTR) : _ptr(ptr) { }
-	inline ~yScopedPointer() { clear(); }
+	inline ySharedPointer(T * ptr) { _count = int(0); ref(); }
+	inline ySharedPointer(const ySharedPointer & other) { if (other._ptr != nullptr) { deref(); _ptr = other._ptr; _count = other._count; ref(); } }
+
 
 	inline bool isNull() const { return !yCHECK_PTR(_ptr); }
 	inline operator bool() const { return yCHECK_PTR(_ptr); }
 	inline bool operator!() const { return isNull(); }
 
 	inline void clear() { reset(yNullptr); }
-	inline void reset(T * other = yNULLPTR) { if (!isNull()) Deleter::destroy(_ptr); _ptr = other; }
+	inline void reset(T * other = yNULLPTR) { deref(); _ptr = other; }
 	inline T * data() const { return _ptr; }
-	inline T * take() { T * ptr = _ptr; _ptr = yNULLPTR; return _ptr; }
 
 	inline T & operator*() const { return *_ptr; }
 	inline T * operator->() const { return _ptr; }
 
 private:
+	void deref() { --_count; if (_count <= 0 && !isNull()) Deleter::destroy(_ptr); }
+	void ref() { ++_count; }
+
+private:
 	T * _ptr;
+	int & _count;
 };
 
-yNAMESPACE_END
-
-#endif // ! _YON_SCOPED_POINTER_HEADER_
+#endif // !_YON_SHARED_POINTER_HEADER_
