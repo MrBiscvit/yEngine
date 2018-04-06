@@ -39,6 +39,9 @@
     <ClInclude Include="include\yCore\yChrono.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\yCore\yScopedPointer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\yCore\yTime.cpp">

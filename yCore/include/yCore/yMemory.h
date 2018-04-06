@@ -49,30 +49,6 @@ yCORE_API inline T * yRealloc(T * ptr, ysizetype size = sizeof(T))
 yCORE_API inline void * yRealloc(void * ptr, ysizetype size)
 { return realloc(ptr, size); }
 
-template<typename T, class Deleter>
-class yCORE_API yScopedPointer
-{
-	yDISABLE_COPY(yScopedPointer)
-
-public:
-	inline yScopedPointer(T * ptr = yNULLPTR) : _ptr(ptr) { }
-	inline ~yScopedPointer() { reset(); }
-
-	inline bool isNull() const { return !yCHECK_PTR(_ptr); }
-	inline operator bool() const { return yCHECK_PTR(_ptr); }
-	inline bool operator!() const { return isNull(); }
-
-	inline void reset(T * other = yNULLPTR) { if (!isNull()) Deleter::destroy(_ptr); _ptr = other; }
-	inline T * data() const { return _ptr; }
-	inline T * take() { T * ptr = _ptr; _ptr = yNULLPTR; return _ptr; }
-
-	inline T & operator*() const { return *_ptr; }
-	inline T * operator->() const { return _ptr; }
-
-private:
-	T * _ptr;
-};
-
 yNAMESPACE_END
 
 #endif // !_YON_MEMORY_HEADER_
