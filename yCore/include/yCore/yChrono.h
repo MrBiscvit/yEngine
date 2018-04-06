@@ -31,20 +31,6 @@
 
 yNAMESPACE_BEGIN
 
-// C API
-
-typedef struct yCORE_API yon_chrono yon_chrono;
-
-yCORE_API yon_chrono * yon_create_chrono();
-yCORE_API void yon_destroy_chrono(yon_chrono * chrono);
-
-yCORE_API void yon_start_chrono(yon_chrono * chrono);
-yCORE_API yon_time * yon_restart_chrono(yon_chrono * chrono, yon_time * elapsed);
-yCORE_API yon_time * yon_elapsed_chrono(yon_chrono * chrono, yon_time * elapsed);
-
-// C++ API
-
-#if defined(__cplusplus)
 class yCORE_API yChrono
 {
 public:
@@ -57,7 +43,6 @@ public:
 private:
 	yTime _lastTime;
 };
-#endif
 
 yNAMESPACE_END
 

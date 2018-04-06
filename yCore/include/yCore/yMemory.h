@@ -28,18 +28,6 @@
 
 #include <yCore/yCore.h>
 
-yNAMESPACE_BEGIN
-
-// C API
-
-yCORE_API void * yon_malloc(ysizetype size);
-yCORE_API void * yon_calloc(ysizetype count, ysizetype size);
-yCORE_API void * yon_realloc(void * ptr, ysizetype size);
-yCORE_API void yon_free(void * ptr);
-
-// C++ API
-
-#if defined(__cplusplus)
 template<typename T>
 yCORE_API inline T * yMalloc(ysizetype size = sizeof(T))
 { return reinterpret_cast<T*>(malloc(size)); }
@@ -84,7 +72,6 @@ public:
 private:
 	T * _ptr;
 };
-#endif
 
 yNAMESPACE_END
 

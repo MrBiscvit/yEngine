@@ -27,19 +27,11 @@
 #pragma once
 
 #include <yCore/yConfig.h>
-#if defined(__cplusplus)
 #include <cstdlib>
 #include <cstdio>
 #include <cstddef>
 #include <cmath>
 #include <climits>
-#else
-#include <stdlib.h>
-#include <stdio.h>
-#include <stddef.h>
-#include <math.h>
-#include <limits.h>
-#endif
 
 // Avoids useless warnings from certain compilers
 #if defined(yCC_MVSC)
@@ -47,9 +39,7 @@
 #  pragma warning(disable: 4244) // conversion from 'type1' to 'type2', possible loss of data
 #  pragma warning(disable: 4275) // non - DLL-interface classkey 'identifier' used as base for DLL-interface classkey 'identifier'
 #  pragma warning(disable: 4514) // unreferenced inline function has been removed
-#  if defined(__cplusplus)
-#    pragma warning(disable: 4800) // 'type' : forcing value to bool 'true' or 'false' (performance warning)
-#  endif
+#  pragma warning(disable: 4800) // 'type' : forcing value to bool 'true' or 'false' (performance warning)
 #  pragma warning(disable: 4097) // typedef-name 'identifier1' used as synonym for class-name 'identifier2'
 #  pragma warning(disable: 4706) // assignment within conditional expression
 #  pragma warning(disable: 4355) // 'this' : used in base member initializer list
@@ -61,7 +51,7 @@
 #if defined(yUSE_NAMESPACE)
 #  define yNAMESPACE Yon
 #endif
-#if defined(yNAMESPACE) && defined(__cplusplus)
+#if defined(yNAMESPACE)
 #  define yNAMESPACE_BEGIN namespace yNAMESPACE {
 #  define yNAMESPACE_END }
 #  define yNAMESPACE_INCLUDE_BEGIN yNAMESPACE_END
@@ -94,11 +84,6 @@ typedef unsigned long long yuint64; // Unsigned 64-bit integer
 
 // Typedefs for signed and unsigned primitive types
 typedef yuint8 ybyte;
-#if defined(__cplusplus)
-typedef bool yboolean;
-#else
-typedef enum { false, true } yboolean;
-#endif
 typedef signed char ychar;
 typedef unsigned char yuchar;
 typedef signed short yshort;
@@ -153,7 +138,6 @@ typedef yuint64 yulonglong;
 #define yUINT64_MAX yULLONG_MAX
 
 // Typedefs for STL compatibility
-#if defined(__cplusplus)
 // Helper class to get the integer type for a in bytes
 template<int> struct yIntegerForSize;
 template<>    struct yIntegerForSize<1> { typedef yint8 Signed; typedef yuint8 Unsigned; };
@@ -165,12 +149,6 @@ typedef yIntegerForSize<sizeof(void*)>::Signed yintptr;
 typedef yIntegerForSize<sizeof(void*)>::Unsigned yuintptr;
 typedef yintptr yptrdiff;
 typedef std::size_t ysizetype;
-#else
-typedef ptrdiff_t yptrdiff;
-typedef unsigned int ysizetype;
-typedef ptrdiff_t yintptr;
-typedef unsigned int yuintptr;
-#endif
 
 // Nothing function
 inline void yon_noop(void) { }
@@ -178,20 +156,6 @@ inline void yon_noop(void) { }
 // Avoid warnings for unused variables
 #define yUNUSED(X) (void)X
 
-// Some maths functions
-inline int yon_abs_i(int v) { return v >= 0 ? v : -v; }
-inline double yon_abs_d(double v) { return v >= 0. ? v : -v; }
-inline float yon_abs_f(float v) { return v >= 0.f ? v : -v; }
-inline int yon_max_i(int x, int y) { return (x > y) ? x : y; }
-inline double yon_max_d(double x, double y) { return (x > y) ? x : y; }
-inline float yon_max_f(float x, float y) { return (x > y) ? x : y; }
-inline int yon_min_i(int x, int y) { return (x < y) ? x : y; }
-inline double yon_min_d(double x, double y) { return (x < y) ? x : y; }
-inline float yon_min_f(float x, float y) { return (x < y) ? x : y; }
-inline int yon_bound_i(int min, int max, int v) { return yon_max_i(min, yon_min_i(max, v)); }
-inline double yon_bound_d(double min, double max, double v) { return yon_max_d(min, yon_min_d(max, v)); }
-inline float yon_bound_f(float min, float max, float v) { return yon_max_f(min, yon_min_f(max, v)); }
-#if defined(__cplusplus)
 template<typename T>
 inline T yAbs(const T & v) { return v >= T(0) ? v : -v; }
 template<typename T, typename U>
@@ -206,19 +170,12 @@ template<typename T, typename ... Args>
 inline T yMin(const T & x, const T & y, const Args & ... args) { return yMin(yMin(x, y), args...); }
 template<typename T>
 inline T yBound(const T & min, const T & max, const T & v) { return yMax(min, yMin(max, v)); }
-#endif
 
 // Fuzzy operations functions
-inline yboolean yon_fuzzy_compare_d(double v1, double v2) { return (yon_abs_d(v1 - v2) * 1000000000000. <= yon_min_d(yon_abs_d(v1), yon_abs_d(v2))); }
-inline yboolean yon_fuzzy_compare_f(float v1, float v2) { return (yon_abs_f(v1 - v2) * 100000.f <= yon_min_f(yon_abs_f(v1), yon_abs_f(v2))); }
-inline yboolean yon_fuzzy_is_null_d(double v) { return yon_abs_d(v) <= 0.000000000001; }
-inline yboolean yon_fuzzy_is_null_f(float v) { return yon_abs_f(v) <= 0.00001f; }
-#if defined(__cplusplus)
-inline yboolean yFuzzyCompare(double v1, double v2) { return (yAbs(v1 - v2) * 1000000000000. <= yMin(yAbs(v1), yAbs(v2))); }
-inline yboolean yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f <= yMin(yAbs(v1), yAbs(v2))); }
-inline yboolean yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
-inline yboolean yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
-#endif
+inline bool yFuzzyCompare(double v1, double v2) { return (yAbs(v1 - v2) * 1000000000000. <= yMin(yAbs(v1), yAbs(v2))); }
+inline bool yFuzzyCompare(float v1, float v2) { return (yAbs(v1 - v2) * 100000.f <= yMin(yAbs(v1), yAbs(v2))); }
+inline bool yFuzzyIsNull(double v) { return yAbs(v) <= 0.000000000001; }
+inline bool yFuzzyIsNull(float v) { return yAbs(v) <= 0.00001f; }
 
 // Conditional type
 #if defined(__cplusplus)
@@ -240,10 +197,7 @@ template<typename T, typename U> struct yConditional<false, T, U> { typedef U ty
 #endif
 
 // Exceptions
-#if !defined(__cplusplus) && !defined(yNO_EXCEPTIONS)
-#  define yNO_EXCEPTIONS
-#endif
-#if defined(yNO_EXCEPTIONS) || !defined(__cplusplus)
+#if defined(yNO_EXCEPTIONS)
 #  define yTry if (true)
 #  define yCatch(A) else
 #  define yThrow(A) yon_noop()
@@ -271,8 +225,6 @@ private:
 #endif
 
 // Exit and Abort functions
-inline void yon_exit(int exitCode) { exit(exitCode); }
-inline void yon_abort(void) { abort(); }
 #if defined(__cplusplus)
 inline void yExit(int exitCode = 0) { std::exit(exitCode); }
 inline void yAbort() { std::abort(); }

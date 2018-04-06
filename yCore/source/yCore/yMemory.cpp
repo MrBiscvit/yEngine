@@ -26,21 +26,4 @@
 
 yNAMESPACE_BEGIN
 
-void * yon_malloc(ysizetype size)
-{
-	return malloc(size);
-}
-void * yon_calloc(ysizetype count, ysizetype size)
-{
-	return calloc(count, size);
-}
-void * yon_realloc(void * ptr, ysizetype size)
-{
-	return realloc(ptr, size);
-}
-void yon_free(void * ptr)
-{
-	free(ptr);
-}
-
 yNAMESPACE_END

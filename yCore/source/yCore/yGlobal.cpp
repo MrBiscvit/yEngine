@@ -32,7 +32,7 @@ noexcept
 #endif
 {
 	fprintf(stderr, "ASSERT: \"%s\" in file %s, line %i", assertion, file, line);
-	yon_abort();
+	yAbort();
 }
 
 void yon_assert_x(const char * where, const char * what, const char * file, int line)
@@ -41,7 +41,7 @@ noexcept
 #endif
 {
 	fprintf(stderr, "ASSERT at \"%s\": \"%s\" in file %s, line %i", where, what, file, line);
-	yon_abort();
+	yAbort();
 }
 
 yNAMESPACE_END
