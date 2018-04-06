@@ -53,7 +53,7 @@ public:
 };
 
 
-template<typename T, class Deleter = yConditional<std::is_array_v<T>, yScopedPointerDeleter<T>, yScopedPointerArrayDeleter<T>>::type>
+template<typename T, class Deleter = yConditional<std::is_array_v<T>, yScopedPointerArrayDeleter<T>, yScopedPointerDeleter<T>>::type>
 class yCORE_API yScopedPointer
 {
 	yDISABLE_COPY(yScopedPointer)
