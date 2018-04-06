@@ -48,6 +48,9 @@
     <ClInclude Include="include\yCore\yAlgorithm.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\yCore\yArray.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\yCore\yTime.cpp">

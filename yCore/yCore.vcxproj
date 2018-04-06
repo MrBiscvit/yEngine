@@ -167,6 +167,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="include\yCore\yAlgorithm.h" />
+    <ClInclude Include="include\yCore\yArray.h" />
     <ClInclude Include="include\yCore\yChrono.h" />
     <ClInclude Include="include\yCore\yConfig.h" />
     <ClInclude Include="include\yCore\yCore.h" />
