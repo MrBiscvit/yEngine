@@ -66,7 +66,7 @@ public:
 	inline operator bool() const { return yCHECK_PTR(_ptr); }
 	inline bool operator!() const { return isNull(); }
 
-	inline void clear() { reset(yNullptr); }
+	inline void clear() { reset(yNULLPTR); }
 	inline void reset(T * other = yNULLPTR) { if (!isNull()) Deleter::destroy(_ptr); _ptr = other; }
 	inline T * data() const { return _ptr; }
 	inline T * take() { T * ptr = _ptr; _ptr = yNULLPTR; return _ptr; }
