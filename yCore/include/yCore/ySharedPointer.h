@@ -54,15 +54,17 @@ template<typename T, class Deleter = yConditional<std::is_array_v<T>, ySharedPoi
 class yCORE_API ySharedPointer
 {
 public:
-	inline ySharedPointer(T * ptr) { _count = int(0); ref(); }
-	inline ySharedPointer(const ySharedPointer & other) { if (other._ptr != nullptr) { deref(); _ptr = other._ptr; _count = other._count; ref(); } }
+	inline ySharedPointer(T * ptr) { _count = new int(0); ref(); }
+	inline ySharedPointer(const ySharedPointer & other) { if (yCHECK_PTR(cother._ptr)) { deref(); _ptr = other._ptr; _count = other._count; ref(); } }
+	inline ~ySharedPointer() { clear(); }
 
+	inline ySharedPointer & operator=(const ySharedPointer & other) { if (yCHECK_PTR(cother._ptr)) { deref(); _ptr = other._ptr; _count = other._count; ref(); } }
 
 	inline bool isNull() const { return !yCHECK_PTR(_ptr); }
 	inline operator bool() const { return yCHECK_PTR(_ptr); }
 	inline bool operator!() const { return isNull(); }
 
-	inline void clear() { reset(yNullptr); }
+	inline void clear() { reset(yNULLPTR); }
 	inline void reset(T * other = yNULLPTR) { deref(); _ptr = other; }
 	inline T * data() const { return _ptr; }
 
@@ -70,12 +72,12 @@ public:
 	inline T * operator->() const { return _ptr; }
 
 private:
-	void deref() { --_count; if (_count <= 0 && !isNull()) Deleter::destroy(_ptr); }
-	void ref() { ++_count; }
+	void deref() { --(*_count); if ((*_count) <= 0) { if (!isNull()) Deleter::destroy(_ptr); delete _count; } }
+	void ref() { ++(*_count); }
 
 private:
 	T * _ptr;
-	int & _count;
+	int * _count;
 };
 
 #endif // !_YON_SHARED_POINTER_HEADER_
