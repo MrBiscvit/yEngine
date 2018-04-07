@@ -178,6 +178,9 @@
     <ClInclude Include="include\yCore\yScopedPointer.h" />
     <ClInclude Include="include\yCore\ySharedPointer.h" />
     <ClInclude Include="include\yCore\yTime.h" />
+    <ClInclude Include="include\yCore\yVector2D.h" />
+    <ClInclude Include="include\yCore\yVector3D.h" />
+    <ClInclude Include="include\yCore\yVector4D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -185,6 +188,9 @@
     <ClCompile Include="source\yCore\yGlobal.cpp" />
     <ClCompile Include="source\yCore\yMemory.cpp" />
     <ClCompile Include="source\yCore\yTime.cpp" />
+    <ClCompile Include="source\yCore\yVector2D.cpp" />
+    <ClCompile Include="source\yCore\yVector3D.cpp" />
+    <ClCompile Include="source\yCore\yVector4D.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
