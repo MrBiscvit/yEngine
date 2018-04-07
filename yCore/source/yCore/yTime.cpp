@@ -37,7 +37,7 @@ bool yTime::isValid() const
 {
 	return _hours >= 0 && _hours < 24 &&
 		_minutes >= 0 && _minutes < 60 &&
-		_seconds >= 0 & _seconds < 60 &&
+		_seconds >= 0 && _seconds < 60 &&
 		_milliseconds >= 0 && _milliseconds < 999;
 }
 
