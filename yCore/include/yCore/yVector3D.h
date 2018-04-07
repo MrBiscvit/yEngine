@@ -69,6 +69,7 @@ public:
 	inline T length() const { return yHypot(_x, _y, _z); }
 	inline T lengthSqared() const { return (_x * _x) + (_y * _y) + (_z * _z); }
 	inline T dot(const yTemplateVector3D<T> & other) const { return (_x * other._x) + (_y * other._y) + (_z * other._z); }
+	yTemplateVector3D<T> cross(const yTemplateVector3D<T> & other) const;
 	inline yTemplateVector3D normalize() const { T l = length(); return yTemplateVector3D<T>(_x / l, _y / l, _z / l); }
 
 	inline T & operator[](int i) { if (i < 0 || i >= 4) { yThrow(yOutOfRange); } return (!i) ? _x : (i) ? _y : _z; }

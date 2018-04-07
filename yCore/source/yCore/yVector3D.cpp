@@ -66,4 +66,12 @@ yTemplateVector4D<T> yTemplateVector3D<T>::toVector4D() const
 	return yTemplateVector3D<T>(_x, _y, _z, T(0));
 }
 
+template<typename T>
+yTemplateVector3D<T> yTemplateVector3D<T>::cross(const yTemplateVector3D<T>& b) const
+{
+	return yTemplateVector3D<T>(_y * b._z - _z * b._y,
+								_z * b._x - _x * b._z,
+								_x * b._y - _y * b._x);
+}
+
 yNAMESPACE_END
