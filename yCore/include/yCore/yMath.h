@@ -71,6 +71,8 @@ template<typename T>
 inline T yCbrt(T value) { return std::cbrt(value); }
 template<typename T>
 inline T yHypot(T value1, T value2) { return std::hypot(value1, value2); }
+template<typename T>
+inline T yHypot(T value1, T value2, T value3) { return ySqrt((value1 * value1) + (value2 * value2) + (value3 * value3)); }
 
 yNAMESPACE_END
 
