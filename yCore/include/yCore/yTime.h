@@ -33,8 +33,8 @@ yNAMESPACE_BEGIN
 class yCORE_API yTime
 {
 public:
-	yTime() : _hours(0), _minutes(0), _seconds(0), _milliseconds(0) { }
-	yTime(int hours, int minutes, int seconds, int milliseconds = 0) { setTime(hours, minutes, seconds, milliseconds); }
+	inline yTime() : _hours(0), _minutes(0), _seconds(0), _milliseconds(0) { }
+	inline yTime(int hours, int minutes, int seconds, int milliseconds = 0) { setTime(hours, minutes, seconds, milliseconds); }
 
 	bool isNull() const;
 	bool isValid() const;
@@ -64,8 +64,8 @@ private:
 class yCORE_API yClockTime
 {
 public:
-	yClockTime() : _milliseconds(0) { }
-	yClockTime(yuint64 milliseconds) : _milliseconds(milliseconds) { }
+	inline yClockTime() : _milliseconds(0) { }
+	inline yClockTime(yuint64 milliseconds) : _milliseconds(milliseconds) { }
 
 	inline bool isNull() const { return _milliseconds == 0; }
 	
