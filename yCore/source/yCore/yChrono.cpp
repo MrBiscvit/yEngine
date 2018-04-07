@@ -24,7 +24,35 @@
 
 #include <yCore/yChrono.h>
 #include <yCore/yMemory.h>
+#if defined(yOS_WINDOWS)
+#  include <Windows.h>
+#elif defined(yOS_APPLE)
+#  include <mach/mach_time.h>
+#else
+#  include <time.h>
+#endif
 
 yNAMESPACE_BEGIN
+
+yClockTime yChrono::now()
+{
+#if defined(yOS_WINDOWS)
+	LARGE_INTEGER frequency;
+	LARGE_INTEGER time;
+	QueryPerformanceFrequency(&frequency);
+	QueryPerformanceCounter(&time);
+	return yClockTime::microseconds(1000000 * time.QuadPart / frequency.QuadPart);
+#elif defined(yOS_APPLE)
+	static mach_timebase_info_data_t frequency = { 0, 0 };
+	if (frequency.denom == 0)
+		mach_timebase_info(&frequency);
+	yuint64 nanoseconds = mach_absolute_time() * frequency.numer / frequency.denom;
+	return yClockTime::microseconds(nanoseconds / 1000);
+#else
+	timespec time;
+	clock_gettime(CLOCK_MONOTONIC, &time);
+	return yClockTime::microseconds(yuint64(time.tv_sec) * 1000000 + time.tv_nsec / 1000);
+#endif
+}
 
 yNAMESPACE_END

@@ -36,12 +36,14 @@ class yCORE_API yChrono
 public:
 	inline yChrono() : _lastTime() { }
 
-	inline void start() { _lastTime = yTime::currentTime(); }
-	inline yTime restart() { yTime e = elapsed(); start(); return e; }
-	inline yTime elapsed() const { return yTime::currentTime() - _lastTime; }
+	inline void start() { _lastTime = now()); }
+	inline yClockTime restart() { yClockTime e = elapsed(); start(); return e; }
+	inline yClockTime elapsed() const { return now() - _lastTime; }
+
+	static yClockTime now();
 
 private:
-	yTime _lastTime;
+	yClockTime _lastTime;
 };
 
 yNAMESPACE_END
