@@ -81,9 +81,19 @@ public:
 	static yClockTime milliseconds(yuint64 milliseconds) { return yClockTime(milliseconds); }
 	static yClockTime microseconds(yuint64 microseconds) { return yClockTime(microseconds / 1000); }
 
+	inline yClockTime & operator*=(const yClockTime & other) { _milliseconds *= other._milliseconds; return *this; }
+	inline yClockTime & operator/=(const yClockTime & other) { _milliseconds /= other._milliseconds; return *this; }
+	inline yClockTime & operator+=(const yClockTime & other) { _milliseconds += other._milliseconds; return *this; }
+	inline yClockTime & operator-=(const yClockTime & other) { _milliseconds -= other._milliseconds; return *this; }
+
 private:
 	yuint64 _milliseconds;
 };
+
+inline yClockTime operator*(const yClockTime & v1, const yClockTime & v2) { return yClockTime(v1.milliseconds() * v2.milliseconds()); }
+inline yClockTime operator/(const yClockTime & v1, const yClockTime & v2) { return yClockTime(v1.milliseconds() / v2.milliseconds()); }
+inline yClockTime operator+(const yClockTime & v1, const yClockTime & v2) { return yClockTime(v1.milliseconds() + v2.milliseconds()); }
+inline yClockTime operator-(const yClockTime & v1, const yClockTime & v2) { return yClockTime(v1.milliseconds() - v2.milliseconds()); }
 
 yNAMESPACE_END
 
