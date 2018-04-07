@@ -36,7 +36,7 @@ class yCORE_API yChrono
 public:
 	inline yChrono() : _lastTime() { }
 
-	inline void start() { _lastTime = now()); }
+	inline void start() { _lastTime = now(); }
 	inline yClockTime restart() { yClockTime e = elapsed(); start(); return e; }
 	inline yClockTime elapsed() const { return now() - _lastTime; }
 
