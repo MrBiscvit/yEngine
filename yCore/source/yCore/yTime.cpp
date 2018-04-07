@@ -24,51 +24,122 @@
 
 #include <yCore/yTime.h>
 #include <yCore/yMemory.h>
-#if defined(_WIN32)
-#include <Windows.h>
-#else
-#include <time.h>
-#endif
+#include <ctime>
 
 yNAMESPACE_BEGIN
 
+bool yTime::isNull() const
+{
+	return _hours == 0 && _minutes == 0 &&
+		_seconds == 0 && _milliseconds == 0;
+}
+bool yTime::isValid() const
+{
+	return _hours >= 0 && _hours < 24 &&
+		_minutes >= 0 && _minutes < 60 &&
+		_seconds >= 0 & _seconds < 60 &&
+		_milliseconds >= 0 && _milliseconds < 999;
+}
+
+void yTime::addHours(int hours)
+{
+	_hours += hours;
+}
+void yTime::addMinutes(int minutes)
+{
+	if (minutes >= 0) {
+		if (minutes >= 60) {
+			int hours = minutes / 60;
+			minutes = minutes % 60;
+			addHours(hours);
+		}
+
+		_minutes += minutes;
+	} else {
+		minutes = yAbs(minutes);
+		if (minutes >= 60) {
+			int hours = minutes / 60;
+			minutes = minutes % 60;
+			addHours(-hours);
+		}
+
+		_minutes -= minutes;
+	}
+}
+void yTime::addSeconds(int seconds)
+{
+	if (seconds >= 0) {
+		if (seconds >= 60) {
+			int minutes = seconds / 60;
+			seconds = seconds % 60;
+			addMinutes(minutes);
+		}
+
+		_seconds += seconds;
+	} else {
+		seconds = yAbs(seconds);
+		if (seconds >= 60) {
+			int minutes = seconds / 60;
+			seconds = seconds % 60;
+			addMinutes(-minutes);
+		}
+
+		_seconds -= seconds;
+	}
+}
+void yTime::addMilliseconds(int milliseconds)
+{
+	if (milliseconds >= 0) {
+		if (milliseconds >= 1000) {
+			int seconds = milliseconds / 1000;
+			milliseconds = milliseconds % 1000;
+			addSeconds(seconds);
+		}
+
+		_milliseconds += milliseconds;
+	} else {
+		milliseconds = yAbs(milliseconds);
+		if (milliseconds >= 1000) {
+			int seconds = milliseconds / 1000;
+			milliseconds = milliseconds % 1000;
+			addSeconds(-seconds);
+		}
+
+		_milliseconds -= milliseconds;
+	}
+}
+
+void yTime::setTime(int hours, int minutes, int seconds, int milliseconds)
+{
+	_hours = _minutes = _seconds = _milliseconds = 0;
+	addHours(hours);
+	addMinutes(minutes);
+	addSeconds(seconds);
+	addMilliseconds(milliseconds);
+}
+
 yTime yTime::currentTime()
 {
+	std::time_t now = std::time(yNULLPTR);
+	std::tm * nowTime = std::localtime(&now);
+
 	yTime time;
-#if defined(_WIN32)
-	LARGE_INTEGER frequency;
-	LARGE_INTEGER t;
-
-	QueryPerformanceFrequency(&frequency);
-	QueryPerformanceCounter(&t);
-
-	time.setMicroseconds(1000000 * t.QuadPart / frequency.QuadPart);
-#else
-	timespec t;
-	clock_gettime(CLOCK_MONOTONIC, &t);
-	time.setMicroseconds(time, t.tv_sec * 1000000 + t.tv_nsec / 1000);
-#endif
+	time._hours = nowTime->tm_hour;
+	time._minutes = nowTime->tm_min;
+	time._seconds = nowTime->tm_sec;
 	return time;
-}
-yTime yTime::systemTime()
-{
-	yTime t;
-#if defined(_WIN32)
-	SYSTEMTIME systemTime;
-	GetSystemTime(&systemTime);
-	t._ms = systemTime.wHour * 1200000 +
-		systemTime.wMinute * 60000 +
-		systemTime.wSecond * 1000 +
-		systemTime.wMilliseconds;
-#else
-	time_t t = time(NULL);
-	struct tm currentTime = *localtime(&t);
-	t._ms = tm.tm_hour * 1200000 +
-		tm.tm_min * 60000 +
-		tm.tm_sec * 1000;
-#endif
 
-	return t;
+}
+yTime yTime::currentUTCTime()
+{
+	std::time_t now = std::time(yNULLPTR);
+	std::tm * nowTime = std::gmtime(&now);
+
+	yTime time;
+	time._hours = nowTime->tm_hour;
+	time._minutes = nowTime->tm_min;
+	time._seconds = nowTime->tm_sec;
+	return time;
 }
 
 yNAMESPACE_END
