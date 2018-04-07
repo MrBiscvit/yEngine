@@ -121,7 +121,12 @@ void yTime::setTime(int hours, int minutes, int seconds, int milliseconds)
 yTime yTime::currentTime()
 {
 	std::time_t now = std::time(yNULLPTR);
-	std::tm * nowTime = std::localtime(&now);
+#if defined(yCC_MVSC)
+	std::tm * nowTime = yNULLPTR;
+	localtime_s(nowTime, &now);
+#else
+	std::tm * nowTime = localtime(&now);
+#endif
 
 	yTime time;
 	time._hours = nowTime->tm_hour;
@@ -133,7 +138,12 @@ yTime yTime::currentTime()
 yTime yTime::currentUTCTime()
 {
 	std::time_t now = std::time(yNULLPTR);
-	std::tm * nowTime = std::gmtime(&now);
+#if defined(yCC_MVSC)
+	std::tm * nowTime = yNULLPTR;
+	gmtime_s(nowTime, &now);
+#else
+	std::tm * nowTime = gmtime(&now);
+#endif
 
 	yTime time;
 	time._hours = nowTime->tm_hour;
