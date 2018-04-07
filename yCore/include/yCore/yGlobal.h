@@ -95,6 +95,12 @@ typedef unsigned long yulong;
 typedef yint64 ylonglong;
 typedef yuint64 yulonglong;
 
+#if defined(yREAL_TYPE)
+typedef yREAL_TYPE yreal;
+#else
+typedef float yreal;
+#endif
+
 // Limits macros by type
 #define yBYTE_MIN (0)
 #define yBYTE_MAX (0xFF)
