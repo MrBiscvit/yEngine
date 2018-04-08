@@ -183,7 +183,6 @@
     <ClInclude Include="include\yCore\yVector4D.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="source\yCore\yChrono.cpp" />
     <ClCompile Include="source\yCore\yGlobal.cpp" />
     <ClCompile Include="source\yCore\yMemory.cpp" />

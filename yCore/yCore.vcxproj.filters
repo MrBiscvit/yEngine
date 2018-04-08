@@ -74,9 +74,6 @@
     <ClCompile Include="source\yCore\yGlobal.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="source\yCore\yVector2D.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
